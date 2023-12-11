@@ -23,7 +23,7 @@ public class frmAlmacen extends javax.swing.JFrame {
     
     String []inventario = new String[4];
     
-    String sql,id,elim;
+    String sql,id,elim,busqueda;
     int n,uno;
     
     public frmAlmacen() {
@@ -47,8 +47,36 @@ public class frmAlmacen extends javax.swing.JFrame {
             tabla.removeRow(n);
         if(Valor.equals(""))
             sql = "SELECT * FROM almacen";
+        
         else
-            sql = "SELECT * FROM almacen WHERE idproducto = '"+Valor+"'";
+            sql = "SELECT * FROM almacen WHERE type = '"+Valor+"'";
+        try {
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            inventario[0]=rs.getString(1);
+            inventario[1]=rs.getString(2);
+            inventario[2]=rs.getString(3);
+            inventario[3]=("$ "+rs.getString(4));
+            tabla.addRow(inventario);
+            
+            
+        }
+        tblInventario.setModel(tabla);
+        }
+        catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null, ex);
+                }
+                }
+
+    public void Buscar(String Valor)
+    {
+        int elit = tblInventario.getRowCount();
+        for(n=elit-1; n>=0;n--) 
+            tabla.removeRow(n);
+        
+        sql = "SELECT * FROM almacen WHERE nombre LIKE '%"+Valor+"%'" + "OR idproducto LIKE '%"+Valor+"%'";
         try {
         Statement st = cn.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -85,8 +113,8 @@ public class frmAlmacen extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
         btnPartes = new javax.swing.JButton();
         btnAutos = new javax.swing.JButton();
-        btnPago = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        btnPedido = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblInventario = new javax.swing.JTable();
@@ -122,6 +150,11 @@ public class frmAlmacen extends javax.swing.JFrame {
         getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 100, 50));
 
         btnPartes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPieazas.png"))); // NOI18N
+        btnPartes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPartesActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnPartes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 80, 80));
 
         btnAutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCoches.png"))); // NOI18N
@@ -132,18 +165,23 @@ public class frmAlmacen extends javax.swing.JFrame {
         });
         getContentPane().add(btnAutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 80, 80));
 
-        btnPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPedido.png"))); // NOI18N
-        btnPago.addActionListener(new java.awt.event.ActionListener() {
+        btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPedido.png"))); // NOI18N
+        btnPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagoActionPerformed(evt);
+                btnPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 80, 60));
+        getContentPane().add(btnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 80, 60));
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 270, 50));
+        txtBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 270, 50));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 80, 80));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -181,12 +219,22 @@ public class frmAlmacen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutosActionPerformed
-        Inventario("");
+        Inventario("0");
     }//GEN-LAST:event_btnAutosActionPerformed
 
-    private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
+    private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         
-    }//GEN-LAST:event_btnPagoActionPerformed
+    }//GEN-LAST:event_btnPedidoActionPerformed
+
+    private void btnPartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartesActionPerformed
+        Inventario("1");
+    }//GEN-LAST:event_btnPartesActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        busqueda=txtBuscar.getText();
+        
+        Buscar(busqueda);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,16 +274,16 @@ public class frmAlmacen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAutos;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnPago;
     private javax.swing.JButton btnPartes;
+    private javax.swing.JButton btnPedido;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLema;
     private javax.swing.JLabel lblLogo;
     private javax.swing.ButtonGroup rdbgEmpresas;
     private javax.swing.JTable tblInventario;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ public class frmInicio extends javax.swing.JFrame {
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
     
-    String user,usuario,pass,contra,newuser,newpass,sql;
+    String user,usuario,pass,contra;
     int i;
 
      frmInicio() {
@@ -34,9 +34,12 @@ public class frmInicio extends javax.swing.JFrame {
      Cromo=new ImageIcon(getClass().getResource("/Imagenes/lblLogin.jpg"));
      Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblLogin.getWidth(),lblLogin.getHeight(),Image.SCALE_DEFAULT));
      lblLogin.setIcon(Escala);
+     Cromo=new ImageIcon(getClass().getResource("/Imagenes/lblLogin.jpg"));
+     Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblRegister.getWidth(),lblRegister.getHeight(),Image.SCALE_DEFAULT));
+     lblRegister.setIcon(Escala);
      
      panRegister.setVisible(false);
-     
+     lblRegister.setVisible(false);
     }
      
 
@@ -57,6 +60,11 @@ public class frmInicio extends javax.swing.JFrame {
         btnHaveAcc = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
         txtNCorreo = new javax.swing.JTextField();
+        txtNNombre = new javax.swing.JTextField();
+        txtNApellidos = new javax.swing.JTextField();
+        txtNNumero = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         panLogin = new javax.swing.JPanel();
         txtUsuario = new javax.swing.JTextField();
         txtpContra = new javax.swing.JPasswordField();
@@ -64,6 +72,7 @@ public class frmInicio extends javax.swing.JFrame {
         btnNoAcc = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         lblLogin = new javax.swing.JLabel();
+        lblRegister = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -97,7 +106,7 @@ public class frmInicio extends javax.swing.JFrame {
             }
         });
 
-        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnLogin.jpg"))); // NOI18N
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnregister.png"))); // NOI18N
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
@@ -108,45 +117,95 @@ public class frmInicio extends javax.swing.JFrame {
         txtNCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CORREO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
 
+        txtNNombre.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        txtNNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NOMBRE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        txtNNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNNombreActionPerformed(evt);
+            }
+        });
+
+        txtNApellidos.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        txtNApellidos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNApellidos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "APELLIDOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+
+        txtNNumero.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        txtNNumero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNNumero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NUMERO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DIRECCION", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout panRegisterLayout = new javax.swing.GroupLayout(panRegister);
         panRegister.setLayout(panRegisterLayout);
         panRegisterLayout.setHorizontalGroup(
             panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panRegisterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHaveAcc))
-                .addContainerGap(108, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panRegisterLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtpNContra, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                    .addComponent(txtNUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNCorreo, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(39, 39, 39))
+                    .addGroup(panRegisterLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(txtNUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(txtpNContra, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panRegisterLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panRegisterLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2)
+                        .addGap(6, 6, 6)
+                        .addComponent(btnHaveAcc))
+                    .addGroup(panRegisterLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panRegisterLayout.createSequentialGroup()
+                                .addComponent(txtNNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16))
+                            .addGroup(panRegisterLayout.createSequentialGroup()
+                                .addComponent(txtNCorreo)
+                                .addGap(18, 18, 18)))
+                        .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtNApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                            .addComponent(txtNNumero))))
+                .addGap(10, 10, 10))
         );
         panRegisterLayout.setVerticalGroup(
             panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panRegisterLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(txtNUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtpNContra, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtNCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(txtpNContra))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnHaveAcc))
-                .addContainerGap())
+                    .addComponent(txtNNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(txtNNumero))
+                .addGap(7, 7, 7)
+                .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panRegisterLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
+                .addGroup(panRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panRegisterLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel2))
+                    .addComponent(btnHaveAcc)))
         );
 
-        getContentPane().add(panRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 340, 430));
+        getContentPane().add(panRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 80, 530, 440));
 
         panLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "INICIAR SESION", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 102))); // NOI18N
         panLogin.setOpaque(false);
@@ -216,6 +275,7 @@ public class frmInicio extends javax.swing.JFrame {
 
         getContentPane().add(panLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 340, 430));
         getContentPane().add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 340, 430));
+        getContentPane().add(lblRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 80, 530, 470));
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 620));
 
         pack();
@@ -224,13 +284,16 @@ public class frmInicio extends javax.swing.JFrame {
 
     private void btnNoAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoAccActionPerformed
        panRegister.setVisible(true);
+       lblRegister.setVisible(true);
        panLogin.setVisible(false);
-       
+       lblLogin.setVisible(false);
     }//GEN-LAST:event_btnNoAccActionPerformed
 
     private void btnHaveAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHaveAccActionPerformed
         panRegister.setVisible(false);
+        lblRegister.setVisible(false);
         panLogin.setVisible(true);
+        lblLogin.setVisible(true);
 
     }//GEN-LAST:event_btnHaveAccActionPerformed
 
@@ -257,11 +320,15 @@ public class frmInicio extends javax.swing.JFrame {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
            try
         {
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO cuentas(user,pass,email"
-                + ") VALUES(?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO cuentas(user,pass,nombre,apellidos,numero,email,direccion"
+                + ") VALUES(?,?,?,?,?,?,?)");
             pst.setString(1,txtNUsuario.getText());
             pst.setString(2,txtpNContra.getText());
-            pst.setString(3,txtNCorreo.getText());
+            pst.setString(3,txtNNombre.getText());
+            pst.setString(4,txtNApellidos.getText());
+            pst.setString(5,String.valueOf(txtNNumero.getText()));
+            pst.setString(6,txtNCorreo.getText());
+            pst.setString(7,jTextArea1.getText());
             
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null,"Se ha creado el registro exitosamente");
@@ -273,6 +340,10 @@ public class frmInicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El usuario no se puede registrar");
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void txtNNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNNombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,11 +388,17 @@ public class frmInicio extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblRegister;
     private javax.swing.JPanel panLogin;
     private javax.swing.JPanel panRegister;
+    private javax.swing.JTextField txtNApellidos;
     private javax.swing.JTextField txtNCorreo;
+    private javax.swing.JTextField txtNNombre;
+    private javax.swing.JTextField txtNNumero;
     private javax.swing.JTextField txtNUsuario;
     private javax.swing.JTextField txtUsuario;
     private javax.swing.JPasswordField txtpContra;
