@@ -138,16 +138,16 @@ public class frmAlmacen extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLema.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        lblLema.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lblLema.setForeground(new java.awt.Color(255, 255, 255));
         lblLema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLema.setText("\"Comprometidos con la seguridad, \ndedicados a tu satisfaccion\"");
         lblLema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 630, 30));
+        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 490, 30));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 100, 50));
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 490, 100, 50));
 
         btnPartes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPieazas.png"))); // NOI18N
         btnPartes.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +163,7 @@ public class frmAlmacen extends javax.swing.JFrame {
                 btnAutosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 80, 80));
+        getContentPane().add(btnAutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 80, 80));
 
         btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPedido.png"))); // NOI18N
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -171,10 +171,10 @@ public class frmAlmacen extends javax.swing.JFrame {
                 btnPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 80, 60));
+        getContentPane().add(btnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 80, 60));
 
         txtBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 270, 50));
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 270, 50));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscar.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +182,7 @@ public class frmAlmacen extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 80, 80));
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 80, 80));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -209,10 +209,10 @@ public class frmAlmacen extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblInventario);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 800, 220));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 630, 220));
 
         lblFondo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 550));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 550));
 
         pack();
         setLocationRelativeTo(null);

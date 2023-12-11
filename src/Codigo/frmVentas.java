@@ -50,15 +50,15 @@ public class frmVentas extends javax.swing.JFrame {
         cboModelos = new javax.swing.JComboBox<>();
         lblAutos = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
-        panSeguros = new javax.swing.JPanel();
+        panMarcas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         rdbSeguro1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnMasModelos = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -70,14 +70,16 @@ public class frmVentas extends javax.swing.JFrame {
 
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, -1));
+        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 100, -1));
 
         panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(0, 102, 255))); // NOI18N
         panComprador.setOpaque(false);
 
+        txtComprador.setEditable(false);
         txtComprador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
+        txtNumero.setEditable(false);
         txtNumero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
         javax.swing.GroupLayout panCompradorLayout = new javax.swing.GroupLayout(panComprador);
@@ -101,14 +103,14 @@ public class frmVentas extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, -1));
+        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
         panModelos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panModelos.setOpaque(false);
 
         cboModelos.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         cboModelos.setForeground(new java.awt.Color(0, 102, 255));
-        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS DE AUTOS:", "1-Nissan Versa", "2-Nissan NP300", "3-KIA Rio", "4-Chevrolet Aveo", "5-Nissan Sentra", "6-MG 5", "7-Nissan March ", "8-Mazda3", "9-Mazda2", "10-KIA Seltos", "11-Lamborghini", "12-Chevrolet Camaro SS", "13-Chevrolet Corvette", "14-Pagani Huayra", "15-Agera Koenigsegg" }));
+        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS MAS POPULARES:", "1-Nissan Versa", "2-Nissan NP300", "3-KIA Rio", "4-Chevrolet Aveo", "5-Nissan Sentra", "6-MG 5", "7-Nissan March ", "8-Mazda3", "9-Mazda2", "10-KIA Seltos", "11-Lamborghini", "12-Chevrolet Camaro SS", "13-Chevrolet Corvette", "14-Pagani Huayra", "15-Agera Koenigsegg" }));
         cboModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboModelosActionPerformed(evt);
@@ -122,14 +124,13 @@ public class frmVentas extends javax.swing.JFrame {
         panModelos.setLayout(panModelosLayout);
         panModelosLayout.setHorizontalGroup(
             panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panModelosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
             .addGroup(panModelosLayout.createSequentialGroup()
-                .addGroup(panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panModelosLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panModelosLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
+                .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         panModelosLayout.setVerticalGroup(
@@ -139,18 +140,19 @@ public class frmVentas extends javax.swing.JFrame {
                 .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 340, -1));
+        getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 340, -1));
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCancelar.png"))); // NOI18N
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, -1, -1));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
 
-        panSeguros.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "MARCAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14), new java.awt.Color(0, 102, 255))); // NOI18N
-        panSeguros.setOpaque(false);
+        panMarcas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "MARCAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14), new java.awt.Color(0, 102, 255))); // NOI18N
+        panMarcas.setOpaque(false);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setOpaque(false);
 
         buttonGroup1.add(rdbSeguro1);
         rdbSeguro1.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
@@ -182,22 +184,22 @@ public class frmVentas extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rdbSeguro1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3)
                     .addComponent(jRadioButton4)
                     .addComponent(jRadioButton5))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addComponent(rdbSeguro1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jRadioButton2)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton3)
@@ -205,46 +207,46 @@ public class frmVentas extends javax.swing.JFrame {
                 .addComponent(jRadioButton4)
                 .addGap(38, 38, 38)
                 .addComponent(jRadioButton5)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panSegurosLayout = new javax.swing.GroupLayout(panSeguros);
-        panSeguros.setLayout(panSegurosLayout);
-        panSegurosLayout.setHorizontalGroup(
-            panSegurosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panSegurosLayout.createSequentialGroup()
+        javax.swing.GroupLayout panMarcasLayout = new javax.swing.GroupLayout(panMarcas);
+        panMarcas.setLayout(panMarcasLayout);
+        panMarcasLayout.setHorizontalGroup(
+            panMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panMarcasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+        );
+        panMarcasLayout.setVerticalGroup(
+            panMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMarcasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panSegurosLayout.setVerticalGroup(
-            panSegurosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panSegurosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
-        getContentPane().add(panSeguros, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 360, 321));
+        getContentPane().add(panMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 240, 321));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnGarantia.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 600, 80, 80));
+        btnMasModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnGarantia.png"))); // NOI18N
+        getContentPane().add(btnMasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 550, 80, 80));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPago_1.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPago_1.png"))); // NOI18N
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPagarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 80, 80));
+        getContentPane().add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 550, 80, 80));
 
-        lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 10)); // NOI18N
+        lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(0, 153, 255));
         lblLema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLema.setText("\"Comprometidos con la seguridad,  dedicados a tu satisfaccion\"");
         lblLema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 320, 30));
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 790, 690));
+        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 660, 570, 30));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 680, 690));
 
         pack();
         setLocationRelativeTo(null);
@@ -293,9 +295,9 @@ public class frmVentas extends javax.swing.JFrame {
      lblAutos.setIcon(Escala);
     }//GEN-LAST:event_cboModelosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnPagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,10 +336,10 @@ public class frmVentas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnMasModelos;
+    private javax.swing.JButton btnPagar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboModelos;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -348,8 +350,8 @@ public class frmVentas extends javax.swing.JFrame {
     private javax.swing.JLabel lblLema;
     private javax.swing.JLabel lbllogo;
     private javax.swing.JPanel panComprador;
+    private javax.swing.JPanel panMarcas;
     private javax.swing.JPanel panModelos;
-    private javax.swing.JPanel panSeguros;
     private javax.swing.JRadioButton rdbSeguro1;
     private javax.swing.JTextField txtComprador;
     private javax.swing.JTextField txtNumero;
