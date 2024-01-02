@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Codigo;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  *
@@ -14,7 +16,9 @@ import javax.swing.JOptionPane;
 public class frmVentas extends javax.swing.JFrame {
     ImageIcon Cromo=new ImageIcon();
     ImageIcon Escala=new ImageIcon();
-    
+    AutoByteDB you = new AutoByteDB();
+    Connection cn = you.conexion();
+                
     String imgautos;
     int auto;
     /**
@@ -22,6 +26,7 @@ public class frmVentas extends javax.swing.JFrame {
      */
     public frmVentas() {
         initComponents();
+        ;
         Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
@@ -31,7 +36,8 @@ public class frmVentas extends javax.swing.JFrame {
         lblAutos.setIcon(Escala);
         
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
-     
+        
+        panMarcas.setVisible(false);
     }
 
     /**
@@ -44,14 +50,6 @@ public class frmVentas extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        lbllogo = new javax.swing.JLabel();
-        panComprador = new javax.swing.JPanel();
-        txtComprador = new javax.swing.JTextField();
-        txtNumero = new javax.swing.JTextField();
-        panModelos = new javax.swing.JPanel();
-        cboModelos = new javax.swing.JComboBox<>();
-        lblAutos = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
         panMarcas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         rdbSeguro1 = new javax.swing.JRadioButton();
@@ -59,96 +57,18 @@ public class frmVentas extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
+        lbllogo = new javax.swing.JLabel();
+        panComprador = new javax.swing.JPanel();
+        txtComprador = new javax.swing.JTextField();
+        txtNumero = new javax.swing.JTextField();
+        panModelos = new javax.swing.JPanel();
+        cboModelos = new javax.swing.JComboBox<>();
+        lblAutos = new javax.swing.JLabel();
         btnMasModelos = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
+        btnAlmacen = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("VENTAS");
-        setUndecorated(true);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
-        lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 100, -1));
-
-        panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(0, 102, 255))); // NOI18N
-        panComprador.setOpaque(false);
-
-        txtComprador.setEditable(false);
-        txtComprador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
-
-        txtNumero.setEditable(false);
-        txtNumero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
-
-        javax.swing.GroupLayout panCompradorLayout = new javax.swing.GroupLayout(panComprador);
-        panComprador.setLayout(panCompradorLayout);
-        panCompradorLayout.setHorizontalGroup(
-            panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panCompradorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        panCompradorLayout.setVerticalGroup(
-            panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panCompradorLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
-
-        panModelos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panModelos.setOpaque(false);
-
-        cboModelos.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        cboModelos.setForeground(new java.awt.Color(0, 102, 255));
-        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS MAS POPULARES:", "1-Nissan Versa", "2-Nissan NP300", "3-KIA Rio", "4-Chevrolet Aveo", "5-Nissan Sentra", "6-MG 5", "7-Nissan March ", "8-Mazda3", "9-Mazda2", "10-KIA Seltos", "11-Lamborghini", "12-Chevrolet Camaro SS", "13-Chevrolet Corvette", "14-Pagani Huayra", "15-Agera Koenigsegg" }));
-        cboModelos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboModelosActionPerformed(evt);
-            }
-        });
-
-        lblAutos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAutos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout panModelosLayout = new javax.swing.GroupLayout(panModelos);
-        panModelos.setLayout(panModelosLayout);
-        panModelosLayout.setHorizontalGroup(
-            panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panModelosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
-            .addGroup(panModelosLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        panModelosLayout.setVerticalGroup(
-            panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panModelosLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, -1));
-
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCancelar.png"))); // NOI18N
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
 
         panMarcas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "MARCAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14), new java.awt.Color(0, 102, 255))); // NOI18N
         panMarcas.setOpaque(false);
@@ -229,10 +149,94 @@ public class frmVentas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 240, 321));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("VENTAS");
+        setUndecorated(true);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnMasModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnGarantia.png"))); // NOI18N
-        getContentPane().add(btnMasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 550, 80, 80));
+        lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
+        lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 100, -1));
+
+        panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(0, 102, 255))); // NOI18N
+        panComprador.setOpaque(false);
+
+        txtComprador.setEditable(false);
+        txtComprador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
+
+        txtNumero.setEditable(false);
+        txtNumero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
+
+        javax.swing.GroupLayout panCompradorLayout = new javax.swing.GroupLayout(panComprador);
+        panComprador.setLayout(panCompradorLayout);
+        panCompradorLayout.setHorizontalGroup(
+            panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panCompradorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        panCompradorLayout.setVerticalGroup(
+            panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panCompradorLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+
+        panModelos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panModelos.setOpaque(false);
+
+        cboModelos.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        cboModelos.setForeground(new java.awt.Color(0, 102, 255));
+        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS MAS POPULARES:", "1-Nissan Versa", "2-Nissan NP300", "3-KIA Rio", "4-Chevrolet Aveo", "5-Nissan Sentra", "6-MG 5", "7-Nissan March ", "8-Mazda3", "9-Mazda2", "10-KIA Seltos", "11-Lamborghini", "12-Chevrolet Camaro SS", "13-Chevrolet Corvette", "14-Pagani Huayra", "15-Agera Koenigsegg" }));
+        cboModelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboModelosActionPerformed(evt);
+            }
+        });
+
+        lblAutos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAutos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout panModelosLayout = new javax.swing.GroupLayout(panModelos);
+        panModelos.setLayout(panModelosLayout);
+        panModelosLayout.setHorizontalGroup(
+            panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panModelosLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cboModelos, 0, 297, Short.MAX_VALUE)
+                    .addComponent(lblAutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        panModelosLayout.setVerticalGroup(
+            panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panModelosLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(cboModelos, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
+
+        getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 380, -1));
+
+        btnMasModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMas.png"))); // NOI18N
+        btnMasModelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasModelosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 80, 90));
 
         btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPago_1.png"))); // NOI18N
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
@@ -240,15 +244,23 @@ public class frmVentas extends javax.swing.JFrame {
                 btnPagarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 550, 80, 80));
+        getContentPane().add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 80, 80));
+
+        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAlmacen.png"))); // NOI18N
+        btnAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlmacenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, 80, 80));
 
         lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(0, 153, 255));
         lblLema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLema.setText("\"Comprometidos con la seguridad,  dedicados a tu satisfaccion\"");
         lblLema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 660, 570, 30));
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 680, 690));
+        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 570, 30));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 580));
 
         pack();
         setLocationRelativeTo(null);
@@ -301,6 +313,30 @@ public class frmVentas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPagarActionPerformed
 
+    private void btnMasModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasModelosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMasModelosActionPerformed
+
+    private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
+         try {
+             
+            String query="SELECT * FROM cuentas WHERE user='"+frmInicio.user+"' and type='2'";
+            Statement st = cn.createStatement();
+            ResultSet rs=st.executeQuery(query);
+            if (rs.next()){
+                dispose();
+                new frmAlmacen().setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "SU CUENTA NO CUENTA CON PERMISOS SUFICIENTES PARA VER EL ALMACEN\n\nInicie sesión con una cuenta diferente e intentelo de nuevo");
+            }   
+            
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR");
+            
+        }
+    }//GEN-LAST:event_btnAlmacenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,7 +373,7 @@ public class frmVentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnAlmacen;
     private javax.swing.JButton btnMasModelos;
     private javax.swing.JButton btnPagar;
     private javax.swing.ButtonGroup buttonGroup1;

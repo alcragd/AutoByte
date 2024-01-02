@@ -7,7 +7,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.sql.*;
-import java.awt.HeadlessException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,14 +20,14 @@ public class frmAlmacen extends javax.swing.JFrame {
     Connection cn = you.conexion();
     DefaultTableModel tabla = new DefaultTableModel();
     
-    String []inventario = new String[4];
+    String []inventario = new String[5];
     
-    String sql,id,elim,busqueda;
+    String sql,id,elim,busqueda,nom,marca,stock,costo,type;
     int n,uno;
     
     public frmAlmacen() {
         initComponents();
-        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmAlmacen_1.jpg"));
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmalmacen.jpg"));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
         
@@ -36,9 +35,12 @@ public class frmAlmacen extends javax.swing.JFrame {
         
         tabla.addColumn("ID");
         tabla.addColumn("PRODUCTO");
+        tabla.addColumn("MARCA");
         tabla.addColumn("EXISTENCIAS");
         tabla.addColumn("PRECIO");
         this.tblInventario.setModel(tabla);
+        
+        Inventario("");
     }
     
     public void Inventario(String Valor)
@@ -58,7 +60,8 @@ public class frmAlmacen extends javax.swing.JFrame {
             inventario[0]=rs.getString(1);
             inventario[1]=rs.getString(2);
             inventario[2]=rs.getString(3);
-            inventario[3]=("$ "+rs.getString(4));
+            inventario[3]=rs.getString(4);
+            inventario[4]=("$ "+rs.getString(5));
             tabla.addRow(inventario);
             
             
@@ -85,7 +88,8 @@ public class frmAlmacen extends javax.swing.JFrame {
             inventario[0]=rs.getString(1);
             inventario[1]=rs.getString(2);
             inventario[2]=rs.getString(3);
-            inventario[3]=("$ "+rs.getString(4));
+            inventario[3]=rs.getString(4);
+            inventario[4]=("$ "+rs.getString(5));
             tabla.addRow(inventario);
             
             
@@ -112,13 +116,11 @@ public class frmAlmacen extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         lblLema = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
-        btnPartes = new javax.swing.JButton();
-        btnAutos = new javax.swing.JButton();
-        btnPedido = new javax.swing.JButton();
-        txtBuscar = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblInventario = new javax.swing.JTable();
+        cboTipo = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -150,45 +152,24 @@ public class frmAlmacen extends javax.swing.JFrame {
         lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 490, 100, 50));
 
-        btnPartes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPieazas.png"))); // NOI18N
-        btnPartes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPartesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnPartes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 80, 80));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        btnAutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCoches.png"))); // NOI18N
-        btnAutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAutosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 80, 80));
-
-        btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPedido.png"))); // NOI18N
-        btnPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPedidoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 80, 60));
-
-        txtBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 270, 50));
-
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscar.png"))); // NOI18N
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 80, 80));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 460, 270));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tblInventario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblInventario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tblInventario.setForeground(new java.awt.Color(0, 102, 153));
         tblInventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -210,7 +191,24 @@ public class frmAlmacen extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblInventario);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 630, 220));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 630, 110));
+
+        cboTipo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cboTipo.setForeground(new java.awt.Color(0, 102, 255));
+        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VER TODO", "PARTES", "AUTOS" }));
+        cboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 150, 40));
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 80, 80));
 
         lblFondo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 550));
@@ -219,44 +217,24 @@ public class frmAlmacen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutosActionPerformed
-        Inventario("0");
-    }//GEN-LAST:event_btnAutosActionPerformed
+    private void cboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoActionPerformed
+       switch (cboTipo.getSelectedIndex()) {
+           case 0:
+               Inventario("");
+               break;
+           case 1:
+               Inventario("1");
+               break;
+           case 2:
+               Inventario("0");
+               break;
+           
+       }
+    }//GEN-LAST:event_cboTipoActionPerformed
 
-    private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
-        
-        
-        
-        
-        try
-        {
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO almacen(nombre,marca,stock,costo,type"
-                + ") VALUES(?,?,?,?,?)");
-            pst.setString(1,"");
-            pst.setString(2,"");
-            pst.setString(3,"");
-            pst.setString(4,"");
-            pst.setString(5,"");
-            
-            
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Se ha actualizado el inventario exitosamente");
-        }
-        catch(HeadlessException | SQLException ex)
-        {
-            JOptionPane.showMessageDialog(null, "El inventario no se puede actualizar");
-        }
-    }//GEN-LAST:event_btnPedidoActionPerformed
-
-    private void btnPartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartesActionPerformed
-        Inventario("1");
-    }//GEN-LAST:event_btnPartesActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        busqueda=txtBuscar.getText();
-        
-        Buscar(busqueda);
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,6 +262,9 @@ public class frmAlmacen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -294,10 +275,9 @@ public class frmAlmacen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAutos;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnPartes;
-    private javax.swing.JButton btnPedido;
+    private javax.swing.JComboBox<String> cboTipo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -306,6 +286,5 @@ public class frmAlmacen extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.ButtonGroup rdbgEmpresas;
     private javax.swing.JTable tblInventario;
-    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ public class frmInicio extends javax.swing.JFrame {
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
     
-    String user,usuario,pass,contra;
+    static String user,usuario,pass,contra;
     int i;
 
      frmInicio() {
