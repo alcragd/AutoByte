@@ -22,13 +22,15 @@ public class frmVentas extends javax.swing.JFrame {
      */
     public frmVentas() {
         initComponents();
-     Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
-     Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
-     lblFondo.setIcon(Escala);
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
+        lblFondo.setIcon(Escala);
      
-     Cromo=new ImageIcon(getClass().getResource("/Imagenes/lblAutos.jpg"));
-     Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblAutos.getWidth(),lblAutos.getHeight(),Image.SCALE_DEFAULT));
-     lblAutos.setIcon(Escala);
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/lblAutos.jpg"));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblAutos.getWidth(),lblAutos.getHeight(),Image.SCALE_DEFAULT));
+        lblAutos.setIcon(Escala);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
      
     }
 
@@ -143,7 +145,7 @@ public class frmVentas extends javax.swing.JFrame {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 340, -1));
+        getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, -1));
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCancelar.png"))); // NOI18N
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));

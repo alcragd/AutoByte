@@ -14,6 +14,8 @@ ImageIcon Escala=new ImageIcon();
         Cromo=new ImageIcon(getClass().getResource("/Imagenes/6282340.jpg"));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
      
     }
 

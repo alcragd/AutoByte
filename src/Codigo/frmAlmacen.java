@@ -32,6 +32,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
         
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
         
         tabla.addColumn("ID");
         tabla.addColumn("PRODUCTO");
@@ -224,6 +225,27 @@ public class frmAlmacen extends javax.swing.JFrame {
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         
+        
+        
+        
+        try
+        {
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO almacen(nombre,marca,stock,costo,type"
+                + ") VALUES(?,?,?,?,?)");
+            pst.setString(1,"");
+            pst.setString(2,"");
+            pst.setString(3,"");
+            pst.setString(4,"");
+            pst.setString(5,"");
+            
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Se ha actualizado el inventario exitosamente");
+        }
+        catch(HeadlessException | SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "El inventario no se puede actualizar");
+        }
     }//GEN-LAST:event_btnPedidoActionPerformed
 
     private void btnPartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartesActionPerformed

@@ -18,8 +18,10 @@ public class frmMarcas extends javax.swing.JFrame {
     public frmMarcas() {
         initComponents();
         Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
-     Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
-     lblFondo.setIcon(Escala);
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
+        lblFondo.setIcon(Escala);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
     }
 
     /**

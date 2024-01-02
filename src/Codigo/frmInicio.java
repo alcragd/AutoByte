@@ -38,6 +38,8 @@ public class frmInicio extends javax.swing.JFrame {
      Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblRegister.getWidth(),lblRegister.getHeight(),Image.SCALE_DEFAULT));
      lblRegister.setIcon(Escala);
      
+     setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
+     
      panRegister.setVisible(false);
      lblRegister.setVisible(false);
     }

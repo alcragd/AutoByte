@@ -5,21 +5,23 @@
 package Codigo;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-/**
- *
- * @author Lab A
- */
+
 public class frmPartes extends javax.swing.JFrame {
 ImageIcon Cromo=new ImageIcon();
     ImageIcon Escala=new ImageIcon();
-    /**
-     * Creates new form frmPartes
-     */
+    String imgpartes;
+    
     public frmPartes() {
         initComponents();
-          Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
-     Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
-     lblFondo.setIcon(Escala);
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
+        lblFondo.setIcon(Escala);
+        
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/lblpartes.png"));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblPartes.getWidth(),lblPartes.getHeight(),Image.SCALE_DEFAULT));
+        lblPartes.setIcon(Escala);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
     }
 
     /**
@@ -37,9 +39,8 @@ ImageIcon Cromo=new ImageIcon();
         txtNumero = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         cboModelos = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblPartes = new javax.swing.JLabel();
         lblLema = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -85,6 +86,7 @@ ImageIcon Cromo=new ImageIcon();
         getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setOpaque(false);
 
         cboModelos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cboModelos.setForeground(new java.awt.Color(0, 102, 255));
@@ -95,59 +97,38 @@ ImageIcon Cromo=new ImageIcon();
             }
         });
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel1.setText("PARTES DE LA IMAGEN");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel2.setText("PALOMA SI HAY Y TACHE SI NO HAY");
+        lblPartes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lblPartes, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
+                        .addGap(74, 74, 74)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(lblPartes, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 560, 250));
@@ -168,45 +149,27 @@ ImageIcon Cromo=new ImageIcon();
 
     private void cboModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModelosActionPerformed
 
-        /*switch (cboModelos.getSelectedIndex()) {
+        switch (cboModelos.getSelectedIndex()) {
 
-            case 0: imgautos="lblAutos.jpg";
+            case 0: imgpartes="lblpartes.png";
             break;
-            case 1: imgautos="versa.jpg";
+            case 1: imgpartes="neumaticos.png";
             break;
-            case 2: imgautos="NP300.jpg";
+            case 2: imgpartes="frenotrasero.png";
             break;
-            case 3: imgautos="rio.jpg";
+            case 3: imgpartes="escape.png";
             break;
-            case 4: imgautos="aveo.jpg";
+            case 4: imgpartes="faro.png";
             break;
-            case 5: imgautos="sentra.jpg";
+            case 5: imgpartes="transmision.png";
             break;
-            case 6: imgautos="MG5.jpg";
-            break;
-            case 7: imgautos="March.jpg";
-            break;
-            case 8: imgautos="Mazda3.jpg";
-            break;
-            case 9: imgautos="Mazda2.jpg";
-            break;
-            case 10: imgautos="seltos.jpg";
-            break;
-            case 11: imgautos="lambo.jpg";
-            break;
-            case 12: imgautos="camaro.jpg";
-            break;
-            case 13: imgautos="corvette.jpg";
-            break;
-            case 14: imgautos="huayra.jpg";
-            break;
-            case 15: imgautos="koeni.jpg";
+            case 6: imgpartes="suspension.png";
             break;
         }
 
-        Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+imgautos));
-        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblAutos.getWidth(),lblAutos.getHeight(),Image.SCALE_DEFAULT));
-        lblAutos.setIcon(Escala);*/
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+imgpartes));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblPartes.getWidth(),lblPartes.getHeight(),Image.SCALE_DEFAULT));
+        lblPartes.setIcon(Escala);
     }//GEN-LAST:event_cboModelosActionPerformed
 
     /**
@@ -246,12 +209,11 @@ ImageIcon Cromo=new ImageIcon();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboModelos;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLema;
+    private javax.swing.JLabel lblPartes;
     private javax.swing.JLabel lbllogo;
     private javax.swing.JPanel panComprador;
     private javax.swing.JTextField txtComprador;
