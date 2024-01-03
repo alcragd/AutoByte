@@ -298,8 +298,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cboModelos" pref="297" max="32767" attributes="0"/>
-                      <Component id="lblAutos" max="32767" attributes="0"/>
+                      <Component id="cboModelos" max="32767" attributes="0"/>
+                      <Component id="lblAutos" pref="297" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>
@@ -309,7 +309,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="cboModelos" pref="45" max="32767" attributes="0"/>
+                  <Component id="cboModelos" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lblAutos" min="-2" pref="221" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>

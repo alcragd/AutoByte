@@ -214,15 +214,15 @@ public class frmVentas extends javax.swing.JFrame {
             .addGroup(panModelosLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cboModelos, 0, 297, Short.MAX_VALUE)
-                    .addComponent(lblAutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboModelos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblAutos, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         panModelosLayout.setVerticalGroup(
             panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panModelosLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(cboModelos, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblAutos, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -314,7 +314,8 @@ public class frmVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnMasModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasModelosActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new frmMarcas().setVisible(true);
     }//GEN-LAST:event_btnMasModelosActionPerformed
 
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
