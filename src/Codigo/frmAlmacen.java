@@ -359,7 +359,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 60, 60));
 
         lblFondo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 550));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 550));
 
         pack();
         setLocationRelativeTo(null);
@@ -480,26 +480,23 @@ public class frmAlmacen extends javax.swing.JFrame {
                     "SELECCIONE EL TIPO DE PRODUCTO","SELECCIONE",
                     JOptionPane.QUESTION_MESSAGE,null,new Object[]{"SELECCIONE","AUTO","PIEZA"},"SELECCIONE"));
             
-            
-            switch (tipo){
-                case "SELECCIONE":
-                    while (tipo.equals("SELECCIONE")){
-                    JOptionPane.showMessageDialog(null,"[!] NO HA SELECCIONADO UN TIPO DE PRODUCTO");
-                    tipo = String.valueOf(JOptionPane.showInputDialog(null,
-                    "SELECCIONE EL TIPO DE PRODUCTO","SELECCIONE",
-                 JOptionPane.QUESTION_MESSAGE,null,new Object[]{"SELECCIONE","AUTO","PIEZA"},"SELECCIONE"));
-                    }
-                    
-                    break;
-                case "AUTO":
-                    Registro("0");
-                    break;
-                case "PIEZA":
-                    Registro("1");
-                    break;
-                    }
+            while (tipo.equals("SELECCIONE")){
+                JOptionPane.showMessageDialog(null,"[!] NO HA SELECCIONADO UN TIPO DE PRODUCTO");
+                tipo = String.valueOf(JOptionPane.showInputDialog(null,
+         "SELECCIONE EL TIPO DE PRODUCTO","SELECCIONE",
+      JOptionPane.QUESTION_MESSAGE,null,new Object[]{"SELECCIONE","AUTO","PIEZA"},"SELECCIONE"));
                 }
             
+        switch (tipo){
+            case "AUTO":
+                Registro("0");
+                break;
+            case "PIEZA":
+                Registro("1");
+                break;
+                }
+                
+        }
             txtID.setText("");
             txtProd.setText("");
             txtMarca.setText("");
