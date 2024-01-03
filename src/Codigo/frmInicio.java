@@ -42,6 +42,9 @@ public class frmInicio extends javax.swing.JFrame {
      
      panRegister.setVisible(false);
      lblRegister.setVisible(false);
+     
+     txtContra.setVisible(false);
+     btnHide.setVisible(false);
     }
      
 
@@ -69,10 +72,13 @@ public class frmInicio extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         panLogin = new javax.swing.JPanel();
         txtUsuario = new javax.swing.JTextField();
+        txtContra = new javax.swing.JTextField();
         txtpContra = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         btnNoAcc = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
+        btnHide = new javax.swing.JButton();
+        btnShow = new javax.swing.JButton();
         lblLogin = new javax.swing.JLabel();
         lblRegister = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
@@ -211,18 +217,27 @@ public class frmInicio extends javax.swing.JFrame {
 
         panLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "INICIAR SESION", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 102))); // NOI18N
         panLogin.setOpaque(false);
+        panLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtUsuario.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "USUARIO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        panLogin.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 63));
+
+        txtContra.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        txtContra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtContra.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CONTRASEÑA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        panLogin.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 163, 240, 63));
 
         txtpContra.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         txtpContra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtpContra.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CONTRASEÑA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        panLogin.add(txtpContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 163, 240, 63));
 
         jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 255));
         jLabel1.setText("¿No tienes cuenta?");
+        panLogin.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 400, -1, -1));
 
         btnNoAcc.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 10)); // NOI18N
         btnNoAcc.setForeground(new java.awt.Color(0, 0, 100));
@@ -232,6 +247,7 @@ public class frmInicio extends javax.swing.JFrame {
                 btnNoAccActionPerformed(evt);
             }
         });
+        panLogin.add(btnNoAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 399, -1, -1));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnLogin.jpg"))); // NOI18N
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -239,41 +255,23 @@ public class frmInicio extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        panLogin.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 276, 80, 80));
 
-        javax.swing.GroupLayout panLoginLayout = new javax.swing.GroupLayout(panLogin);
-        panLogin.setLayout(panLoginLayout);
-        panLoginLayout.setHorizontalGroup(
-            panLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panLoginLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNoAcc))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLoginLayout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addGroup(panLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtpContra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
-        );
-        panLoginLayout.setVerticalGroup(
-            panLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panLoginLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(txtpContra, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(panLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnNoAcc))
-                .addContainerGap())
-        );
+        btnHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnhide.png"))); // NOI18N
+        btnHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHideActionPerformed(evt);
+            }
+        });
+        panLogin.add(btnHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 183, 30, 30));
+
+        btnShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnshow.png"))); // NOI18N
+        btnShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowActionPerformed(evt);
+            }
+        });
+        panLogin.add(btnShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 183, 30, 30));
 
         getContentPane().add(panLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 340, 430));
         getContentPane().add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 340, 430));
@@ -302,7 +300,12 @@ public class frmInicio extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
             user=txtUsuario.getText();
-            pass=txtpContra.getText();
+            if(txtpContra.getText().equals("")){
+                pass=txtContra.getText();
+            }
+            else {
+                pass=txtpContra.getText();
+            }
             String query="SELECT * FROM cuentas WHERE user='"+user+"' and pass='"+pass+"'";
             Statement st = cn.createStatement();
             ResultSet rs=st.executeQuery(query);
@@ -347,6 +350,22 @@ public class frmInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNNombreActionPerformed
 
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        txtContra.setText(txtpContra.getText());
+        txtpContra.setVisible(false);
+        txtContra.setVisible(true);
+        btnShow.setVisible(false);
+        btnHide.setVisible(true);
+    }//GEN-LAST:event_btnShowActionPerformed
+
+    private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed
+        txtpContra.setText(txtContra.getText());
+        txtpContra.setVisible(true);
+        txtContra.setVisible(false);
+        btnShow.setVisible(true);
+        btnHide.setVisible(false);
+    }//GEN-LAST:event_btnHideActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -384,9 +403,11 @@ public class frmInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHaveAcc;
+    private javax.swing.JButton btnHide;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnNoAcc;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JButton btnShow;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -397,6 +418,7 @@ public class frmInicio extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegister;
     private javax.swing.JPanel panLogin;
     private javax.swing.JPanel panRegister;
+    private javax.swing.JTextField txtContra;
     private javax.swing.JTextField txtNApellidos;
     private javax.swing.JTextField txtNCorreo;
     private javax.swing.JTextField txtNNombre;

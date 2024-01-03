@@ -19,14 +19,14 @@ public class frmVentas extends javax.swing.JFrame {
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
                 
-    String imgautos;
+    String imgautos,sql;
     int auto;
     /**
      * Creates new form frmVentas
      */
     public frmVentas() {
         initComponents();
-        ;
+        
         Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
@@ -38,6 +38,9 @@ public class frmVentas extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
         
         panMarcas.setVisible(false);
+        
+        txtComprador.setText(GetCompradorInfo("0"));
+        txtNumero.setText(GetCompradorInfo("1"));
     }
 
     /**
@@ -157,7 +160,7 @@ public class frmVentas extends javax.swing.JFrame {
 
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 100, -1));
+        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 100, -1));
 
         panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(0, 102, 255))); // NOI18N
         panComprador.setOpaque(false);
@@ -265,7 +268,31 @@ public class frmVentas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private String GetCompradorInfo(String Valor){
+        if (Valor.equals("0")){
+            sql = "SELECT nombre FROM cuentas WHERE user='"+frmInicio.user+"'";
+        }
+        else if (Valor.equals("1")) {
+            sql = "SELECT numero FROM cuentas WHERE user='"+frmInicio.user+"'";
+        }
+        try {
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if(rs.next()){
+        return(rs.getString(1));
+        }
+        else{
+            return("");
+        }
+        }
+        catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null, ex);
+                    return("");
+                }
+        
+    }
     private void cboModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModelosActionPerformed
         
         switch (cboModelos.getSelectedIndex()) {
