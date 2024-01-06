@@ -7,7 +7,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.sql.*;
-import java.awt.HeadlessException;
+
 
 
 /**
@@ -22,7 +22,7 @@ public class frmInicio extends javax.swing.JFrame {
     Connection cn = you.conexion();
     
     static String user,usuario,pass,contra;
-    int i;
+    int i,sh=1;
 
      frmInicio() {
         initComponents();
@@ -222,7 +222,7 @@ public class frmInicio extends javax.swing.JFrame {
         txtUsuario.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "USUARIO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
-        panLogin.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 63));
+        panLogin.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 70, 240, 63));
 
         txtContra.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
         txtContra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -249,7 +249,7 @@ public class frmInicio extends javax.swing.JFrame {
         });
         panLogin.add(btnNoAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 399, -1, -1));
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnLogin.jpg"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnlogin.png"))); // NOI18N
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -283,13 +283,15 @@ public class frmInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNoAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoAccActionPerformed
-       panRegister.setVisible(true);
-       lblRegister.setVisible(true);
-       panLogin.setVisible(false);
-       lblLogin.setVisible(false);
+       
+        panRegister.setVisible(true);
+        lblRegister.setVisible(true);
+        panLogin.setVisible(false);
+        lblLogin.setVisible(false);
     }//GEN-LAST:event_btnNoAccActionPerformed
 
     private void btnHaveAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHaveAccActionPerformed
+        
         panRegister.setVisible(false);
         lblRegister.setVisible(false);
         panLogin.setVisible(true);
@@ -300,7 +302,7 @@ public class frmInicio extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
             user=txtUsuario.getText();
-            if(txtpContra.getText().equals("")){
+            if(sh==0){
                 pass=txtContra.getText();
             }
             else {
@@ -314,9 +316,32 @@ public class frmInicio extends javax.swing.JFrame {
                 new frmVentas().setVisible(true);
             }
             else {
-                JOptionPane.showMessageDialog(null, "USUARIO O CONTRAEÑA INVALIDOS");
+                dispose();
+            for(i=1;i<=3;i++) 
+            {
+                JOptionPane.showMessageDialog(null, "Inicio de sesión fallido, intente de nuevo");
+                user=JOptionPane.showInputDialog("Intento: "+i+"/3\n\nIngresa Usuario:");
+                pass=JOptionPane.showInputDialog("Intento: "+i+"/3\n\nIngresa Contraseña:");
+                
+                query="SELECT * FROM cuentas WHERE user='"+user+"' and pass='"+pass+"'";
+                st = cn.createStatement();
+                rs=st.executeQuery(query);
+                
+                
+                if(rs.next()) 
+                {
+                    dispose();
+                    new frmVentas().setVisible(true);
+                    i=5;
+                }
+                else if(i==3)
+                {
+                    JOptionPane.showMessageDialog(null, "NO HAY INTENTOS DISPONIBLES!!\nCERRANDO PROGRAMA...");
+                    System.exit(0);
+                }
             }
-        } catch (HeadlessException | SQLException ex) {
+            }
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERROR");
             
         }
@@ -340,7 +365,7 @@ public class frmInicio extends javax.swing.JFrame {
             panRegister.setVisible(false);
             panLogin.setVisible(true);
         }
-        catch(HeadlessException | SQLException ex)
+        catch(SQLException ex)
         {
             JOptionPane.showMessageDialog(null, "El usuario no se puede registrar");
         }
@@ -351,6 +376,7 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNNombreActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        sh=0;
         txtContra.setText(txtpContra.getText());
         txtpContra.setVisible(false);
         txtContra.setVisible(true);
@@ -359,6 +385,7 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnShowActionPerformed
 
     private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed
+        sh=1;
         txtpContra.setText(txtContra.getText());
         txtpContra.setVisible(true);
         txtContra.setVisible(false);

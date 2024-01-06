@@ -5,6 +5,11 @@
 package Codigo;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import java.sql.*;
+
+
+import java.io.InputStream; //ver cboModelos
 /**
  *
  * @author Lab A
@@ -12,16 +17,77 @@ import javax.swing.ImageIcon;
 public class frmMarcas extends javax.swing.JFrame {
     ImageIcon Cromo=new ImageIcon();
     ImageIcon Escala=new ImageIcon();
+    AutoByteDB you = new AutoByteDB();
+    Connection cn = you.conexion();
+    static String marca;
+    String logomarca,sqlmodelos,imgmodelo,smodelo;
+    
+    
+    
     /**
      * Creates new form frmMarcas
      */
     public frmMarcas() {
         initComponents();
-        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmMarcas.jpg"));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
         
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
+        
+        marca="SELECCIONE";
+        while (frmMarcas.marca.equals("SELECCIONE")){
+        marca=(String.valueOf(JOptionPane.showInputDialog(null,
+         "ELIJA UNA MARCA","SELECCIONE",
+      JOptionPane.QUESTION_MESSAGE,null,new Object[]{"SELECCIONE","KIA","CHEVROLET",
+          "FORD","NISSAN","TOYOTA"},"SELECCIONE")));
+        }
+            Cromo=new ImageIcon(getClass().getResource("/Imagenes/modelos.jpg"));
+            Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblModelo.getWidth(),lblModelo.getHeight(),Image.SCALE_DEFAULT));
+            lblModelo.setIcon(Escala);
+        
+        switch(marca) {
+                case "KIA": logomarca="Kia.png";
+                break;
+                case "CHEVROLET": logomarca="chevrolet.jpg";
+                break;
+                case "NISSAN": logomarca="nissan.jpg";
+                break;
+                case "FORD": logomarca="ford.jpg";
+                break;
+                case "TOYOTA": logomarca="toyota.png";
+                break;
+                default: 
+                    dispose();
+                    new frmVentas().setVisible(true);                    
+                break;
+             
+                
+        }
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+logomarca));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblLogo.getWidth(),lblLogo.getHeight(),Image.SCALE_DEFAULT));
+        lblLogo.setIcon(Escala);
+        
+        txtComprador.setText(frmVentas.nombre);
+        txtNumero.setText(frmVentas.numero);
+        lblMarca.setText(marca);
+        
+        sqlmodelos = "SELECT nombre FROM almacen WHERE marca = '"+marca+"'";
+        
+        try {
+        Statement stm = cn.createStatement();
+        ResultSet rsm = stm.executeQuery(sqlmodelos);
+        while(rsm.next()){
+            
+            cboModelos.addItem(rsm.getString(1));
+            
+        }
+        
+        }
+        catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null, ex);
+                }
     }
 
     /**
@@ -40,16 +106,16 @@ public class frmMarcas extends javax.swing.JFrame {
         txtNumero = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         cboModelos = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblModelo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         panAdicionales = new javax.swing.JPanel();
         chkEsponja = new javax.swing.JCheckBox();
         chkAromantizantes = new javax.swing.JCheckBox();
         chkFundas = new javax.swing.JCheckBox();
         chkToalla = new javax.swing.JCheckBox();
         chkCalcomania = new javax.swing.JCheckBox();
-        jLabel2 = new javax.swing.JLabel();
+        lblMarca = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,21 +125,24 @@ public class frmMarcas extends javax.swing.JFrame {
 
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
+        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 450, 100, -1));
 
         lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(255, 0, 51));
-        lblLema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLema.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblLema.setText("\"Comprometidos con la seguridad,  dedicados a tu satisfaccion\"");
+        lblLema.setToolTipText("");
         lblLema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 570, 30));
+        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, 550, 30));
 
         panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(255, 0, 51))); // NOI18N
         panComprador.setOpaque(false);
 
+        txtComprador.setEditable(false);
         txtComprador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
+        txtNumero.setEditable(false);
         txtNumero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
         javax.swing.GroupLayout panCompradorLayout = new javax.swing.GroupLayout(panComprador);
@@ -90,85 +159,73 @@ public class frmMarcas extends javax.swing.JFrame {
         panCompradorLayout.setVerticalGroup(
             panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panCompradorLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
+        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, 100));
 
-        cboModelos.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setEnabled(false);
+        jPanel1.setOpaque(false);
+
+        cboModelos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         cboModelos.setForeground(new java.awt.Color(0, 102, 255));
-        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS", "-", "-", "-", "-" }));
+        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS" }));
         cboModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboModelosActionPerformed(evt);
             }
         });
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel1.setText("LOGO DE LA MARCA");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel3.setText("FTO DEL MODELO");
+        lblModelo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 490, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 320, 250));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnvolver.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 60, 60));
 
         panAdicionales.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ADICIONALES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14), new java.awt.Color(51, 51, 255))); // NOI18N
         panAdicionales.setOpaque(false);
 
         chkEsponja.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
-        chkEsponja.setForeground(new java.awt.Color(255, 0, 0));
+        chkEsponja.setForeground(new java.awt.Color(0, 102, 255));
         chkEsponja.setText("ESPONJA $119.99");
         chkEsponja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/esponja.png"))); // NOI18N
 
         chkAromantizantes.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
-        chkAromantizantes.setForeground(new java.awt.Color(255, 0, 0));
+        chkAromantizantes.setForeground(new java.awt.Color(51, 102, 255));
         chkAromantizantes.setText("AROMATIZANTE $89.99");
         chkAromantizantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/aromi.png"))); // NOI18N
         chkAromantizantes.addActionListener(new java.awt.event.ActionListener() {
@@ -178,12 +235,12 @@ public class frmMarcas extends javax.swing.JFrame {
         });
 
         chkFundas.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
-        chkFundas.setForeground(new java.awt.Color(255, 0, 0));
+        chkFundas.setForeground(new java.awt.Color(0, 102, 204));
         chkFundas.setText("FUNDAS DE VOLANTE $169.99");
         chkFundas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/funda.png"))); // NOI18N
 
         chkToalla.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
-        chkToalla.setForeground(new java.awt.Color(255, 0, 0));
+        chkToalla.setForeground(new java.awt.Color(0, 102, 204));
         chkToalla.setText("TOALLA DE LAVADO $499.99");
         chkToalla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/toalla.jpg"))); // NOI18N
         chkToalla.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +250,7 @@ public class frmMarcas extends javax.swing.JFrame {
         });
 
         chkCalcomania.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
-        chkCalcomania.setForeground(new java.awt.Color(255, 0, 0));
+        chkCalcomania.setForeground(new java.awt.Color(0, 102, 204));
         chkCalcomania.setText("CALCOMANIAS $79.99");
         chkCalcomania.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/calco.jpg"))); // NOI18N
 
@@ -214,80 +271,82 @@ public class frmMarcas extends javax.swing.JFrame {
         panAdicionalesLayout.setVerticalGroup(
             panAdicionalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panAdicionalesLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addComponent(chkEsponja)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkAromantizantes)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkFundas)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkToalla)
                 .addGap(18, 18, 18)
                 .addComponent(chkCalcomania)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panAdicionales, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 280, 420));
+        getContentPane().add(panAdicionales, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 290, 400));
 
-        jLabel2.setText("NOMBRE DE LA MARCA");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 132, -1));
+        lblMarca.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblMarca.setForeground(new java.awt.Color(255, 255, 255));
+        lblMarca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMarca.setText("NOMBRE DE LA MARCA");
+        getContentPane().add(lblMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 280, 30));
+
+        lblLogo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 157, 134));
 
         lblFondo.setOpaque(true);
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 510));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 570));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+   
+    
     private void cboModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModelosActionPerformed
+        /* Nescesitaba validar si la imagen existe o no, esto para evitar errores
+        si alguien da de alta en la base de datos un modelo del cual no hayan imagenes
+        
+        Intente con la clase .isFile() y .exists() pero si usaba la misma ruta que se usa para el 
+        ImageIcon me mandaba a C:\Imagenes\  lugar de a la ruta de Imagenes de el proyecto
+        
+        Usé  getResourceAsStream() para obtener un flujo de entrada (InputStream) 
+        y luego cargar la imagen desde el flujo de entrada ya que con getResource() no funcionaba,
+        además deberia funcionar aun con el proyecto ya compilado
+        
+        https://www.geeksforgeeks.org/class-getresourceasstream-method-in-java-with-examples/
+        
+        */
+        smodelo = cboModelos.getSelectedItem().toString().toLowerCase();
+        InputStream inputStream = getClass().getResourceAsStream("/Imagenes/" + smodelo + ".jpg");
 
-        /*switch (cboModelos.getSelectedIndex()) {
-
-            case 0: imgautos="lblAutos.jpg";
-            break;
-            case 1: imgautos="versa.jpg";
-            break;
-            case 2: imgautos="NP300.jpg";
-            break;
-            case 3: imgautos="rio.jpg";
-            break;
-            case 4: imgautos="aveo.jpg";
-            break;
-            case 5: imgautos="sentra.jpg";
-            break;
-            case 6: imgautos="MG5.jpg";
-            break;
-            case 7: imgautos="March.jpg";
-            break;
-            case 8: imgautos="Mazda3.jpg";
-            break;
-            case 9: imgautos="Mazda2.jpg";
-            break;
-            case 10: imgautos="seltos.jpg";
-            break;
-            case 11: imgautos="lambo.jpg";
-            break;
-            case 12: imgautos="camaro.jpg";
-            break;
-            case 13: imgautos="corvette.jpg";
-            break;
-            case 14: imgautos="huayra.jpg";
-            break;
-            case 15: imgautos="koeni.jpg";
-            break;
+        if (inputStream != null) {
+        // La imagen existe 
+        imgmodelo = smodelo;
         }
-
-        Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+imgautos));
-        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblAutos.getWidth(),lblAutos.getHeight(),Image.SCALE_DEFAULT));
-        lblAutos.setIcon(Escala);*/
+        else {
+        // La imagen no existe
+        imgmodelo = "modelos";
+        }      
+        
+        
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+imgmodelo+".jpg"));
+        Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblModelo.getWidth(),lblModelo.getHeight(),Image.SCALE_DEFAULT));
+        lblModelo.setIcon(Escala); 
     }//GEN-LAST:event_cboModelosActionPerformed
 
     private void chkAromantizantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAromantizantesActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_chkAromantizantesActionPerformed
 
     private void chkToallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkToallaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkToallaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+        new frmVentas().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,13 +390,13 @@ public class frmMarcas extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkEsponja;
     private javax.swing.JCheckBox chkFundas;
     private javax.swing.JCheckBox chkToalla;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLema;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblModelo;
     private javax.swing.JLabel lbllogo;
     private javax.swing.JPanel panAdicionales;
     private javax.swing.JPanel panComprador;

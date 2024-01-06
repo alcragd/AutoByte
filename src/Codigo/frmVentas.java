@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Codigo;
-import java.awt.HeadlessException;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -18,7 +18,7 @@ public class frmVentas extends javax.swing.JFrame {
     ImageIcon Escala=new ImageIcon();
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
-                
+    static String nombre, numero;            
     String imgautos,sql;
     int auto;
     /**
@@ -39,8 +39,13 @@ public class frmVentas extends javax.swing.JFrame {
         
         panMarcas.setVisible(false);
         
-        txtComprador.setText(GetCompradorInfo("0"));
-        txtNumero.setText(GetCompradorInfo("1"));
+        nombre=GetCompradorInfo("nombre");
+        numero=GetCompradorInfo("numero");
+        
+        txtComprador.setText(nombre);
+        txtNumero.setText(numero);
+        
+        
     }
 
     /**
@@ -68,6 +73,7 @@ public class frmVentas extends javax.swing.JFrame {
         cboModelos = new javax.swing.JComboBox<>();
         lblAutos = new javax.swing.JLabel();
         btnMasModelos = new javax.swing.JButton();
+        btnPagar1 = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
         btnAlmacen = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
@@ -200,7 +206,7 @@ public class frmVentas extends javax.swing.JFrame {
 
         cboModelos.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         cboModelos.setForeground(new java.awt.Color(0, 102, 255));
-        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS MAS POPULARES:", "1-Nissan Versa", "2-Nissan NP300", "3-KIA Rio", "4-Chevrolet Aveo", "5-Nissan Sentra", "6-MG 5", "7-Nissan March ", "8-Mazda3", "9-Mazda2", "10-KIA Seltos", "11-Lamborghini", "12-Chevrolet Camaro SS", "13-Chevrolet Corvette", "14-Pagani Huayra", "15-Agera Koenigsegg" }));
+        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MODELOS MAS POPULARES:", "Nissan Versa", "Nissan NP300", "KIA Rio", "Chevrolet Aveo", "Nissan Sentra", "MG 5", "Nissan March ", "Mazda3", "Mazda2", "KIA Seltos", "Lamborghini", "Chevrolet Camaro SS", "Chevrolet Corvette", "Pagani Huayra", "Agera Koenigsegg" }));
         cboModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboModelosActionPerformed(evt);
@@ -233,29 +239,37 @@ public class frmVentas extends javax.swing.JFrame {
 
         getContentPane().add(panModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 380, -1));
 
-        btnMasModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMas.png"))); // NOI18N
+        btnMasModelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnmasmodelos.png"))); // NOI18N
         btnMasModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMasModelosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 80, 90));
+        getContentPane().add(btnMasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 80, 80));
 
-        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnPago_1.png"))); // NOI18N
+        btnPagar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnpartes.png"))); // NOI18N
+        btnPagar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPagar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 370, 80, 80));
+
+        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btncomprar.png"))); // NOI18N
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPagarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 80, 80));
+        getContentPane().add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 80, 80));
 
-        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAlmacen.png"))); // NOI18N
+        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnalmacen.png"))); // NOI18N
         btnAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlmacenActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, 80, 80));
+        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 80, 80));
 
         lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(0, 153, 255));
@@ -270,12 +284,7 @@ public class frmVentas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private String GetCompradorInfo(String Valor){
-        if (Valor.equals("0")){
-            sql = "SELECT nombre FROM cuentas WHERE user='"+frmInicio.user+"'";
-        }
-        else if (Valor.equals("1")) {
-            sql = "SELECT numero FROM cuentas WHERE user='"+frmInicio.user+"'";
-        }
+        sql = "SELECT "+Valor+" FROM cuentas WHERE user='"+frmInicio.user+"'";
         try {
         Statement st = cn.createStatement();
         ResultSet rs = st.executeQuery(sql);
@@ -337,7 +346,12 @@ public class frmVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_cboModelosActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
+        frmTicket.volver=0;
+        dispose();
+        new frmTicket().setVisible(true);
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnMasModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasModelosActionPerformed
@@ -348,7 +362,7 @@ public class frmVentas extends javax.swing.JFrame {
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
          try {
              
-            String query="SELECT * FROM cuentas WHERE user='"+frmInicio.user+"' and type='2'";
+            String query="SELECT * FROM cuentas WHERE user='"+frmInicio.user+"' and type='2' OR user=" + "'" + frmInicio.user + "' and type ='1'";
             Statement st = cn.createStatement();
             ResultSet rs=st.executeQuery(query);
             if (rs.next()){
@@ -359,11 +373,15 @@ public class frmVentas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "SU CUENTA NO CUENTA CON PERMISOS SUFICIENTES PARA VER EL ALMACEN\n\nInicie sesión con una cuenta diferente e intentelo de nuevo");
             }   
             
-        } catch (HeadlessException | SQLException ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERROR");
             
         }
     }//GEN-LAST:event_btnAlmacenActionPerformed
+
+    private void btnPagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPagar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,6 +422,7 @@ public class frmVentas extends javax.swing.JFrame {
     private javax.swing.JButton btnAlmacen;
     private javax.swing.JButton btnMasModelos;
     private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnPagar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboModelos;
     private javax.swing.JPanel jPanel1;

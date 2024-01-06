@@ -23,7 +23,7 @@ public class frmAlmacen extends javax.swing.JFrame {
     
     String []inventario = new String[5];
     
-    String sql,tipo;
+    String sql,tipo, autoi;
     int n,sr,btn,confirm;
     
     public frmAlmacen() {
@@ -43,6 +43,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         
         Inventario("");
         
+        
         txtID.setEnabled(false);
         txtProd.setEnabled(false);
         txtMarca.setEnabled(false);
@@ -51,7 +52,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         
         btnConfirmar.setEnabled(false);
         btnCancelar.setEnabled(false);
-
+        
     }
     
     public void Inventario(String Valor)
@@ -115,22 +116,40 @@ public class frmAlmacen extends javax.swing.JFrame {
     
     public void Registro(String Valor){
         try    
-            {
+            {   
+                if (txtID.getText().equals("")){
+                    autoi=") VALUES(default,?,?,?,?,?)";
+                }
+                else{
+                    autoi=") VALUES(?,?,?,?,?,?)";
+                }
+                    
                 PreparedStatement pst = cn.prepareStatement("INSERT INTO almacen(idproducto,nombre,marca,stock,costo,type"
-                + ") VALUES(?,?,?,?,?,?)");
+                + autoi);
+                
+                if (txtID.getText().equals("")){
+                pst.setString(1,txtProd.getText());
+                pst.setString(2,txtMarca.getText());
+                pst.setString(3,txtExist.getText());
+                pst.setString(4,String.valueOf(txtPrecio.getText().replace("$", "")));
+                pst.setString(5,Valor); 
+                }
+                else{
                 pst.setString(1,txtID.getText());
                 pst.setString(2,txtProd.getText());
                 pst.setString(3,txtMarca.getText());
                 pst.setString(4,txtExist.getText());
                 pst.setString(5,String.valueOf(txtPrecio.getText().replace("$", "")));
-                pst.setString(6,Valor);
+                pst.setString(6,Valor); 
+                }
+                
             
             
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Se ha creado el registro exitosamente");
             
             }
-            catch(HeadlessException | SQLException ex)
+            catch(SQLException ex)
             {
             JOptionPane.showMessageDialog(null, "[!] NO FUE POSIBLE CREAR EL REGISTRO");
             }
@@ -159,9 +178,8 @@ public class frmAlmacen extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblInventario = new javax.swing.JTable();
-        cboTipo = new javax.swing.JComboBox<>();
+        cboFiltro = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
@@ -185,7 +203,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 490, 100, 50));
 
-        panModif.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panModif.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panModif.setOpaque(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -291,6 +309,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         getContentPane().add(panModif, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 580, 150));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane2.setOpaque(false);
 
         tblInventario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tblInventario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -318,15 +337,15 @@ public class frmAlmacen extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 630, 200));
 
-        cboTipo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cboTipo.setForeground(new java.awt.Color(0, 102, 255));
-        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VER TODO", "PARTES", "AUTOS" }));
-        cboTipo.addActionListener(new java.awt.event.ActionListener() {
+        cboFiltro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cboFiltro.setForeground(new java.awt.Color(0, 102, 255));
+        cboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VER TODO", "PARTES", "AUTOS" }));
+        cboFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboTipoActionPerformed(evt);
+                cboFiltroActionPerformed(evt);
             }
         });
-        getContentPane().add(cboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 150, 40));
+        getContentPane().add(cboFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 150, 40));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnbuscar.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -335,9 +354,6 @@ public class frmAlmacen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 60, 60));
-
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnhelp.png"))); // NOI18N
-        getContentPane().add(btnHelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 210, 30, 30));
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnagregar.png"))); // NOI18N
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -355,13 +371,13 @@ public class frmAlmacen extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 20, 60, 60));
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnsalir.png"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnapagar.png"))); // NOI18N
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 100, 70, 70));
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 130, 80, 80));
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btneliminar.png"))); // NOI18N
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -386,24 +402,30 @@ public class frmAlmacen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoActionPerformed
-        switch (cboTipo.getSelectedIndex()) {
+    private void cboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFiltroActionPerformed
+        switch (cboFiltro.getSelectedIndex()) {
            case 0:
                Inventario("");
+               cboFiltro.removeItem("BUSQUEDA");
                break;
            case 1:
                Inventario("1");
+               cboFiltro.removeItem("BUSQUEDA");
                break;
            case 2:
                Inventario("0");
+               cboFiltro.removeItem("BUSQUEDA");
                break;
-           
+            
        }
-    }//GEN-LAST:event_cboTipoActionPerformed
+        
+        
+    }//GEN-LAST:event_cboFiltroActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         Buscar(String.valueOf(JOptionPane.showInputDialog("Buscar:\n[MARCA/NOMBRE/ID]")));
-        
+        cboFiltro.addItem("BUSQUEDA");
+        cboFiltro.setSelectedItem("BUSQUEDA");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -542,11 +564,10 @@ public class frmAlmacen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
-        sr = tblInventario.getSelectedRow();
-        if(sr >= 0)
+        sr=tblInventario.getSelectedRow();
+        if(tblInventario.getSelectedRow() >= 0)
         {   
-            confirm = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quierees borrar este registro?\n(Esta acción no se puede deshacer)", "CONFIRMAR",
+            confirm = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres borrar este registro?\n(Esta acción no se puede deshacer)", "CONFIRMAR",
 				JOptionPane.YES_NO_OPTION);
             if (confirm==0) {
             PreparedStatement pst;
@@ -624,11 +645,10 @@ public class frmAlmacen extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cboTipo;
+    private javax.swing.JComboBox<String> cboFiltro;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFondo;
