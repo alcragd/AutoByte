@@ -380,7 +380,8 @@ public class frmVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnPagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagar1ActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new frmPartes().setVisible(true);
     }//GEN-LAST:event_btnPagar1ActionPerformed
 
     /**

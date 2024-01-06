@@ -55,15 +55,16 @@ ImageIcon Cromo=new ImageIcon();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo 2.jpg"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 210, 130));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 200, 110));
 
+        txtaTicket.setEditable(false);
         txtaTicket.setColumns(20);
         txtaTicket.setFont(new java.awt.Font("Bell MT", 1, 12)); // NOI18N
         txtaTicket.setRows(5);
         txtaTicket.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "TICKET", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bell MT", 1, 18), new java.awt.Color(0, 0, 204))); // NOI18N
         jScrollPane1.setViewportView(txtaTicket);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 330, 450));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 330, 450));
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setOpaque(false);
@@ -144,7 +145,7 @@ ImageIcon Cromo=new ImageIcon();
         getContentPane().add(btnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 80, 80));
 
         lblFondo.setOpaque(true);
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 640));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         pack();
         setLocationRelativeTo(null);

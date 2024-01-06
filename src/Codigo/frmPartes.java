@@ -13,7 +13,7 @@ ImageIcon Cromo=new ImageIcon();
     
     public frmPartes() {
         initComponents();
-        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmTodo.jpg"));
+        Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmpartes.jpg"));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblFondo.getWidth(),lblFondo.getHeight(),Image.SCALE_DEFAULT));
         lblFondo.setIcon(Escala);
         
@@ -22,6 +22,9 @@ ImageIcon Cromo=new ImageIcon();
         lblPartes.setIcon(Escala);
         
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
+        
+        txtComprador.setText(frmVentas.nombre);
+        txtNumero.setText(frmVentas.numero);
     }
 
     /**
@@ -33,14 +36,15 @@ ImageIcon Cromo=new ImageIcon();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         lbllogo = new javax.swing.JLabel();
         panComprador = new javax.swing.JPanel();
         txtComprador = new javax.swing.JTextField();
         txtNumero = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         cboModelos = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         lblPartes = new javax.swing.JLabel();
+        btnCompra = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -50,6 +54,12 @@ ImageIcon Cromo=new ImageIcon();
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel1.setText("COMPRAR REFACCIONES");
+        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
+
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 100, -1));
@@ -57,9 +67,11 @@ ImageIcon Cromo=new ImageIcon();
         panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(255, 0, 51))); // NOI18N
         panComprador.setOpaque(false);
 
+        txtComprador.setEditable(false);
         txtComprador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
+        txtNumero.setEditable(false);
         txtNumero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Numero", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
         javax.swing.GroupLayout panCompradorLayout = new javax.swing.GroupLayout(panComprador);
@@ -90,7 +102,7 @@ ImageIcon Cromo=new ImageIcon();
 
         cboModelos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cboModelos.setForeground(new java.awt.Color(0, 102, 255));
-        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PARTES", "NEUMATICOS", "FRENOS TRASEROS", "ESCAPES", "FAROS", "TRANSMISION", "SUSPENSIONES" }));
+        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PARTES", "NEUMATICOS", "FRENOS TRASEROS", "ESCAPES", "FAROS", "TRANSMISION", "SUSPENSIONES", "LUCES TRASERAS" }));
         cboModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboModelosActionPerformed(evt);
@@ -99,6 +111,8 @@ ImageIcon Cromo=new ImageIcon();
 
         lblPartes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btncparte.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -106,13 +120,15 @@ ImageIcon Cromo=new ImageIcon();
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(lblPartes, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)))
-                .addGap(14, 14, 14))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(btnCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,18 +137,18 @@ ImageIcon Cromo=new ImageIcon();
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addComponent(btnCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(lblPartes, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 560, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 560, 250));
 
-        lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
-        lblLema.setForeground(new java.awt.Color(255, 0, 51));
+        lblLema.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        lblLema.setForeground(new java.awt.Color(255, 0, 0));
         lblLema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLema.setText("\"Comprometidos con la seguridad,  dedicados a tu satisfaccion\"");
         lblLema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -162,6 +178,8 @@ ImageIcon Cromo=new ImageIcon();
             case 5: imgpartes="transmision.png";
             break;
             case 6: imgpartes="suspension.png";
+            break;
+            case 7: imgpartes="lucestraseras.jpg";
             break;
         }
 
@@ -206,8 +224,9 @@ ImageIcon Cromo=new ImageIcon();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCompra;
     private javax.swing.JComboBox<String> cboModelos;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLema;
