@@ -55,7 +55,7 @@ public class frmAlmacen extends javax.swing.JFrame {
         
     }
     
-    public void Inventario(String Valor)
+    private void Inventario(String Valor)
     {
         int elit = tblInventario.getRowCount();
         for(n=elit-1; n>=0;n--)
@@ -86,7 +86,7 @@ public class frmAlmacen extends javax.swing.JFrame {
                 }
                 }
 
-    public void Buscar(String Valor)
+    private void Buscar(String Valor)
     {
         int elit = tblInventario.getRowCount();
         for(n=elit-1; n>=0;n--) 

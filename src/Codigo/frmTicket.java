@@ -4,7 +4,9 @@
  */
 package Codigo;
 import java.awt.Image;
+import java.sql.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Lab A
@@ -12,7 +14,12 @@ import javax.swing.ImageIcon;
 public class frmTicket extends javax.swing.JFrame {
 ImageIcon Cromo=new ImageIcon();
     ImageIcon Escala=new ImageIcon();
-    static int volver;
+    AutoByteDB you = new AutoByteDB();
+    Connection cn = you.conexion();
+    
+    static int volver,confirmseguro;
+    String seguro="",sql;
+    double costoseguro,subtotauto,total,pago,falta;
     /**
      * Creates new form frmTicket
      */
@@ -24,6 +31,13 @@ ImageIcon Cromo=new ImageIcon();
         
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
         
+        subtotauto=frmVentas.precio+frmMarcas.subtotauto;
+        btnInicio.setEnabled(false);
+        btnVolver.setEnabled(false);
+        btnCreditos.setEnabled(false);
+        btnSalir.setEnabled(false);
+        btnPagar.setEnabled(true);
+        Ticket();
     }
 
     /**
@@ -59,7 +73,8 @@ ImageIcon Cromo=new ImageIcon();
 
         txtaTicket.setEditable(false);
         txtaTicket.setColumns(20);
-        txtaTicket.setFont(new java.awt.Font("Bell MT", 1, 12)); // NOI18N
+        txtaTicket.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtaTicket.setForeground(new java.awt.Color(0, 102, 102));
         txtaTicket.setRows(5);
         txtaTicket.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "TICKET", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bell MT", 1, 18), new java.awt.Color(0, 0, 204))); // NOI18N
         jScrollPane1.setViewportView(txtaTicket);
@@ -150,26 +165,110 @@ ImageIcon Cromo=new ImageIcon();
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void Ticket() {
+                total=subtotauto+costoseguro+frmMarcas.subtotadicionales+frmPartes.subtotpartes;
+                txtaTicket.setText("=============AUTOBYTE============="
+                + "\n\nCOMPROMETIDOS CON LA SEGURIDAD,"
+                + "\nDEDICADOS A TU SATISFACCION\n\n"
+                + "===================================="
+                + "\n\nCLIENTE:\t"+frmVentas.nombre+
+                "\nAUTOMOVIL:\t"+frmVentas.autocompra+frmMarcas.modelo+
+                "\n\n===================================="+"\n\n>>>>>ADICIONALES<<<<<\n\n"+frmMarcas.adicionales +"\n"+">>>>>REFACCIONES<<<<<"+
+                "\n\nNeumaticos:\t\t"+frmPartes.NNeumaticos+"\nEscapes:\t\t"+frmPartes.NEscapes+
+                "\nFaros:\t\t"+frmPartes.NFaros+"\nTransmisiones:\t"+frmPartes.NTransmision+
+                "\nSuspensiones:\t"+frmPartes.NSuspensiones+"\nLuces Traseras:\t"+frmPartes.NLucest+
+                "\n\n>>>>>SEGURO<<<<<\n\n"+seguro+
+                "\n\n==============PAGO==============\n\n"+"AUTOMOVIL:\t\t"+ String.format("$%.2f", subtotauto)+
+                "\nADICIONALES:\t"+String.format("$%.2f", frmMarcas.subtotadicionales)+"\n\nREFACCIONES:\t"+String.format("$%.2f", frmPartes.subtotpartes)+
+                "\nSEGURO:\t\t"+String.format("$%.2f",costoseguro )+"\n\nTOTAL:\t\t"+String.format("$%.2f", total)+ "\n\n====================================");
+    }
+    private void ActualizarExistencias(String Valor, int decremento){
+        try
+        {   
+            sql="UPDATE almacen set stock=stock -"+decremento+" WHERE nombre='"+Valor+"'";
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.executeUpdate();
 
+            
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+            
+        
+    }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new frmInicio().setVisible(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         dispose();
-        if (volver==0)
+    switch (volver) {
+        case 0:
             new frmVentas().setVisible(true);
-        else if (volver ==1)
+            break;
+        case 1:
             new frmMarcas().setVisible(true);
+            break;
+        case 2:
+            new frmPartes().setVisible(true);
+            break;
+        
+    }
         
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
+        txtaTicket.setVisible(false);
+        pago=Double.parseDouble(JOptionPane.showInputDialog("Porfavor ingrese el pago de: $"+total));
+        
+        if(pago==total)
+        {
+            JOptionPane.showMessageDialog(null, "Pago completado con exito\n¡Gracias por su visita!");
+        }
+        else if (pago<total) {
+            while (pago<total)
+                {
+                    falta = Double.parseDouble(JOptionPane.showInputDialog("Pago incompleto,\nPorfavor ingresa el faltante: $"+String.format("%.2f", total-pago)));
+                    pago+=falta;
+                    
+                    if (pago==total)
+                        {
+                            JOptionPane.showMessageDialog(null, "Pago completado con exito\n¡Gracias por su visita!");
+                        }
+                    else if (pago>total)
+                        {
+                            JOptionPane.showMessageDialog(null, "Pago completado con exito\n¡Gracias por su visita!\n\nSu cambio es: $"+String.format("%.2f", pago-total));
+                        }
+                }
+        }
+        else if (pago>total)
+                        {
+                            JOptionPane.showMessageDialog(null, "Pago completado con exito\n¡Gracias por su visita!\n\nSu cambio es: $"+String.format("%.2f", pago-total));
+                        }
+        
+        btnInicio.setEnabled(true);
+        btnVolver.setEnabled(true);
+        btnCreditos.setEnabled(true);
+        btnSalir.setEnabled(true);
+        btnPagar.setEnabled(false);
+        
+        ActualizarExistencias(frmVentas.autocompra+frmMarcas.modelo,1);
+        ActualizarExistencias("Neumaticos",frmPartes.NNeumaticos);
+        ActualizarExistencias("Frenos Traseros",frmPartes.NFrenos);
+        ActualizarExistencias("Escapes",frmPartes.NEscapes);
+        ActualizarExistencias("Faros",frmPartes.NFaros);
+        ActualizarExistencias("Transmisiones",frmPartes.NTransmision);
+        ActualizarExistencias("Suspensiones",frmPartes.NSuspensiones);
+        ActualizarExistencias("Luces Traseras",frmPartes.NLucest);
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnCreditosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditosActionPerformed
@@ -178,7 +277,15 @@ ImageIcon Cromo=new ImageIcon();
     }//GEN-LAST:event_btnCreditosActionPerformed
 
     private void btnSegurosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSegurosActionPerformed
-        // TODO add your handling code here:
+        confirmseguro = JOptionPane.showConfirmDialog(null, "¿Desea contratar el seguro AutoBytePro?", "CONFIRMAR",
+				JOptionPane.YES_NO_OPTION);
+            if (confirmseguro==0) {
+               seguro="Seguro AutoBytePro"; 
+               costoseguro=8000;
+                btnSeguros.setEnabled(false);
+               Ticket();
+            }
+           
     }//GEN-LAST:event_btnSegurosActionPerformed
 
     /**

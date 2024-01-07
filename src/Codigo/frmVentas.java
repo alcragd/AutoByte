@@ -18,9 +18,10 @@ public class frmVentas extends javax.swing.JFrame {
     ImageIcon Escala=new ImageIcon();
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
-    static String nombre, numero;            
+    static String nombre, numero,autocompra="S";            
     String imgautos,sql;
-    int auto;
+    static double precio;
+    int confirm;
     /**
      * Creates new form frmVentas
      */
@@ -73,7 +74,7 @@ public class frmVentas extends javax.swing.JFrame {
         cboModelos = new javax.swing.JComboBox<>();
         lblAutos = new javax.swing.JLabel();
         btnMasModelos = new javax.swing.JButton();
-        btnPagar1 = new javax.swing.JButton();
+        btnPartes = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
         btnAlmacen = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
@@ -187,7 +188,7 @@ public class frmVentas extends javax.swing.JFrame {
                 .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panCompradorLayout.setVerticalGroup(
             panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +197,7 @@ public class frmVentas extends javax.swing.JFrame {
                 .addGroup(panCompradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
@@ -225,7 +226,7 @@ public class frmVentas extends javax.swing.JFrame {
                 .addGroup(panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cboModelos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAutos, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panModelosLayout.setVerticalGroup(
             panModelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,13 +248,13 @@ public class frmVentas extends javax.swing.JFrame {
         });
         getContentPane().add(btnMasModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 80, 80));
 
-        btnPagar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnpartes.png"))); // NOI18N
-        btnPagar1.addActionListener(new java.awt.event.ActionListener() {
+        btnPartes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnpartes.png"))); // NOI18N
+        btnPartes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagar1ActionPerformed(evt);
+                btnPartesActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPagar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 370, 80, 80));
+        getContentPane().add(btnPartes, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 370, 80, 80));
 
         btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btncomprar.png"))); // NOI18N
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +270,7 @@ public class frmVentas extends javax.swing.JFrame {
                 btnAlmacenActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 80, 80));
+        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 80, 80));
 
         lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(0, 153, 255));
@@ -306,38 +307,39 @@ public class frmVentas extends javax.swing.JFrame {
         
         switch (cboModelos.getSelectedIndex()) {
         
-                case 0: imgautos="lblAutos.jpg";
+                case 0: imgautos="lblAutos.jpg";    autocompra="";
                 break;
-                case 1: imgautos="versa.jpg";
+                case 1: imgautos="versa.jpg";  autocompra="versa";
                 break;
-                case 2: imgautos="NP300.jpg";
+                case 2: imgautos="NP300.jpg";   autocompra="NP300";
                 break;
-                case 3: imgautos="rio.jpg";
+                case 3: imgautos="rio.jpg"; autocompra="rio";
                 break;
-                case 4: imgautos="aveo.jpg";
+                case 4: imgautos="aveo.jpg";    autocompra="aveo";
                 break;
-                case 5: imgautos="sentra.jpg";
+                case 5: imgautos="sentra.jpg"; autocompra="Sentra";
                 break;
-                case 6: imgautos="MG5.jpg";
+                case 6: imgautos="MG5.jpg"; autocompra="MG5";
                 break;
-                case 7: imgautos="March.jpg";
+                case 7: imgautos="March.jpg";   autocompra="march";
                 break;
-                case 8: imgautos="Mazda3.jpg";
+                case 8: imgautos="Mazda3.jpg";  autocompra="mazda3";
                 break;
-                case 9: imgautos="Mazda2.jpg";
+                case 9: imgautos="Mazda2.jpg"; autocompra="mazda2";
                 break;
-                case 10: imgautos="seltos.jpg";
+                case 10: imgautos="seltos.jpg"; autocompra="seltos";
                 break;
-                case 11: imgautos="lambo.jpg";
+                case 11: imgautos="lambo.jpg"; autocompra="lambo";
                 break;
-                case 12: imgautos="camaro.jpg";
+                case 12: imgautos="camaro.jpg"; autocompra="camaro";
                 break;
-                case 13: imgautos="corvette.jpg";
+                case 13: imgautos="corvette.jpg";   autocompra="corvette";
                 break;
-                case 14: imgautos="huayra.jpg";
+                case 14: imgautos="huayra.jpg"; autocompra="huayra";
                 break;
-                case 15: imgautos="koeni.jpg";
+                case 15: imgautos="koeni.jpg";  autocompra="koeni";
                 break;
+                
     }
         
      Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+imgautos));
@@ -347,11 +349,41 @@ public class frmVentas extends javax.swing.JFrame {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         
-        
-        
-        frmTicket.volver=0;
-        dispose();
-        new frmTicket().setVisible(true);
+        frmMarcas.modelo="";
+
+        if (autocompra.equals("")){
+            JOptionPane.showMessageDialog(null, "Seleccione un auto primero");
+        }
+        else{
+            String query = "SELECT costo FROM almacen WHERE nombre = '"+autocompra+"'";
+            try {
+                Statement stm = cn.createStatement();
+                ResultSet rsm = stm.executeQuery(query);
+                if (rsm.next()) {
+                    precio=Double.parseDouble(rsm.getString(1));
+                    confirm=JOptionPane.showConfirmDialog(null, "¿Desea comprar refacciones?", "CONFIRMAR",
+				JOptionPane.YES_NO_OPTION);
+                    
+                    if (confirm==0) {
+                        frmPartes.volver=0;
+                        dispose();
+                        new frmPartes().setVisible(true);
+                        }
+                    else {
+                       frmTicket.volver=0;
+                        dispose();
+                        new frmTicket().setVisible(true); 
+                    }
+                    
+                    }
+                else {
+                    JOptionPane.showMessageDialog(null, "Este auto no está disponible por el momento:(");
+                    }
+            }
+            catch(SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+            }
+        }
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnMasModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasModelosActionPerformed
@@ -371,18 +403,18 @@ public class frmVentas extends javax.swing.JFrame {
             }
             else {
                 JOptionPane.showMessageDialog(null, "SU CUENTA NO CUENTA CON PERMISOS SUFICIENTES PARA VER EL ALMACEN\n\nInicie sesión con una cuenta diferente e intentelo de nuevo");
-            }   
-            
-        } catch (SQLException ex) {
+            }        
+        } 
+        catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERROR");
             
         }
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
-    private void btnPagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagar1ActionPerformed
+    private void btnPartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartesActionPerformed
         dispose();
         new frmPartes().setVisible(true);
-    }//GEN-LAST:event_btnPagar1ActionPerformed
+    }//GEN-LAST:event_btnPartesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,7 +455,7 @@ public class frmVentas extends javax.swing.JFrame {
     private javax.swing.JButton btnAlmacen;
     private javax.swing.JButton btnMasModelos;
     private javax.swing.JButton btnPagar;
-    private javax.swing.JButton btnPagar1;
+    private javax.swing.JButton btnPartes;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboModelos;
     private javax.swing.JPanel jPanel1;

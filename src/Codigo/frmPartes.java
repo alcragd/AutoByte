@@ -4,13 +4,21 @@
  */
 package Codigo;
 import java.awt.Image;
+import java.sql.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class frmPartes extends javax.swing.JFrame {
 ImageIcon Cromo=new ImageIcon();
     ImageIcon Escala=new ImageIcon();
-    String imgpartes;
+    AutoByteDB you = new AutoByteDB();
+    Connection cn = you.conexion();
     
+    String imgpartes,sql;
+    static int NNeumaticos=0,NFrenos=0,NEscapes=0,NFaros=0,NTransmision=0,NSuspensiones=0,NLucest=0,volver;
+    static double subneu,subfreno,subescapes,subfaros,subtransm,subsusp,sublucest,subtotpartes;
+    int cuantos=0;
+
     public frmPartes() {
         initComponents();
         Cromo=new ImageIcon(getClass().getResource("/Imagenes/frmpartes.jpg"));
@@ -36,13 +44,14 @@ ImageIcon Cromo=new ImageIcon();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbllogo = new javax.swing.JLabel();
         panComprador = new javax.swing.JPanel();
         txtComprador = new javax.swing.JTextField();
         txtNumero = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        cboModelos = new javax.swing.JComboBox<>();
+        cboPartes = new javax.swing.JComboBox<>();
         lblPartes = new javax.swing.JLabel();
         btnCompra = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
@@ -53,6 +62,14 @@ ImageIcon Cromo=new ImageIcon();
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnVolver.png"))); // NOI18N
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 60, 60));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 255));
@@ -100,18 +117,23 @@ ImageIcon Cromo=new ImageIcon();
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setOpaque(false);
 
-        cboModelos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cboModelos.setForeground(new java.awt.Color(0, 102, 255));
-        cboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PARTES", "NEUMATICOS", "FRENOS TRASEROS", "ESCAPES", "FAROS", "TRANSMISION", "SUSPENSIONES", "LUCES TRASERAS" }));
-        cboModelos.addActionListener(new java.awt.event.ActionListener() {
+        cboPartes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cboPartes.setForeground(new java.awt.Color(0, 102, 255));
+        cboPartes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PARTES", "NEUMATICOS", "FRENOS TRASEROS", "ESCAPES", "FAROS", "TRANSMISION", "SUSPENSIONES", "LUCES TRASERAS" }));
+        cboPartes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboModelosActionPerformed(evt);
+                cboPartesActionPerformed(evt);
             }
         });
 
         lblPartes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btncparte.png"))); // NOI18N
+        btnCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +145,7 @@ ImageIcon Cromo=new ImageIcon();
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboPartes, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(88, 88, 88)
@@ -136,7 +158,7 @@ ImageIcon Cromo=new ImageIcon();
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(cboModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboPartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
                         .addComponent(btnCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -160,33 +182,77 @@ ImageIcon Cromo=new ImageIcon();
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    private double PartesPrecio(String Valor) {
+    sql = "SELECT costo FROM almacen WHERE nombre='"+Valor+"'";
+        try {
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if(rs.next()){
+        return(rs.getDouble(1));
+        }
+        else{
+            return(0);
+        }
+        }
+        catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null, ex);
+                    return(0);
+                }
+}    
+    private void cboPartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPartesActionPerformed
+        cuantos=Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos "+ cboPartes.getSelectedItem()+"?"));
 
-    private void cboModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModelosActionPerformed
+        switch (cboPartes.getSelectedIndex()) {
 
-        switch (cboModelos.getSelectedIndex()) {
-
-            case 0: imgpartes="lblpartes.png";
+            case 0: imgpartes="lblpartes.png"; 
             break;
-            case 1: imgpartes="neumaticos.png";
+            case 1: imgpartes="neumaticos.png"; NNeumaticos=cuantos;
             break;
-            case 2: imgpartes="frenotrasero.png";
+            case 2: imgpartes="frenotrasero.png"; NFrenos=cuantos;
             break;
-            case 3: imgpartes="escape.png";
+            case 3: imgpartes="escape.png"; NEscapes=cuantos;
             break;
-            case 4: imgpartes="faro.png";
+            case 4: imgpartes="faro.png";   NFaros=cuantos;
             break;
-            case 5: imgpartes="transmision.png";
+            case 5: imgpartes="transmision.png"; NTransmision=cuantos;
             break;
-            case 6: imgpartes="suspension.png";
+            case 6: imgpartes="suspension.png"; NSuspensiones=cuantos;
             break;
-            case 7: imgpartes="lucestraseras.jpg";
+            case 7: imgpartes="lucestraseras.jpg";  NLucest=cuantos;
             break;
         }
 
         Cromo=new ImageIcon(getClass().getResource("/Imagenes/"+imgpartes));
         Escala=new ImageIcon(Cromo.getImage().getScaledInstance(lblPartes.getWidth(),lblPartes.getHeight(),Image.SCALE_DEFAULT));
         lblPartes.setIcon(Escala);
-    }//GEN-LAST:event_cboModelosActionPerformed
+    }//GEN-LAST:event_cboPartesActionPerformed
+
+    private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
+        frmTicket.volver=2;
+        subneu=NNeumaticos*PartesPrecio("Neumaticos");
+        subfreno=NFrenos*PartesPrecio("Frenos Traseros");
+        subescapes=NEscapes*PartesPrecio("Escapes");
+        subfaros=NFaros*PartesPrecio("Faros");
+        subtransm=NTransmision*PartesPrecio("Transmisiones");
+        subsusp=NSuspensiones*PartesPrecio("Suspensiones");
+        sublucest=NLucest*PartesPrecio("Luces Traseras");
+        
+        subtotpartes=subneu+subfreno+subescapes+subfaros+subtransm+subsusp+sublucest;
+        dispose();
+        new frmTicket().setVisible(true);
+    }//GEN-LAST:event_btnCompraActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+        if (volver==0)
+        new frmVentas().setVisible(true);
+        else if (volver==1)
+        new frmMarcas().setVisible(true);
+        
+
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,7 +291,8 @@ ImageIcon Cromo=new ImageIcon();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompra;
-    private javax.swing.JComboBox<String> cboModelos;
+    public static javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cboPartes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFondo;

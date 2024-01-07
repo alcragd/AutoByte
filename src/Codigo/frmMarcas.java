@@ -19,9 +19,10 @@ public class frmMarcas extends javax.swing.JFrame {
     ImageIcon Escala=new ImageIcon();
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
-    static String marca;
-    String logomarca,sqlmodelos,imgmodelo,smodelo;
-    
+    static String marca,smodelo="MODELOS",modelo,adicionales="";
+    String logomarca,sqlmodelos,imgmodelo;
+    static double subtotadicionales=0.0,subtotauto;
+    int confirm;
     
     
     /**
@@ -107,10 +108,11 @@ public class frmMarcas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         cboModelos = new javax.swing.JComboBox<>();
         lblModelo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        btnComprar = new javax.swing.JButton();
         panAdicionales = new javax.swing.JPanel();
         chkEsponja = new javax.swing.JCheckBox();
-        chkAromantizantes = new javax.swing.JCheckBox();
+        chkAromatizantes = new javax.swing.JCheckBox();
         chkFundas = new javax.swing.JCheckBox();
         chkToalla = new javax.swing.JCheckBox();
         chkCalcomania = new javax.swing.JCheckBox();
@@ -125,7 +127,7 @@ public class frmMarcas extends javax.swing.JFrame {
 
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 450, 100, -1));
+        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 420, 100, -1));
 
         lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(255, 0, 51));
@@ -133,7 +135,7 @@ public class frmMarcas extends javax.swing.JFrame {
         lblLema.setText("\"Comprometidos con la seguridad,  dedicados a tu satisfaccion\"");
         lblLema.setToolTipText("");
         lblLema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, 550, 30));
+        getContentPane().add(lblLema, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 550, 30));
 
         panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(255, 0, 51))); // NOI18N
         panComprador.setOpaque(false);
@@ -208,13 +210,21 @@ public class frmMarcas extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 320, 250));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnvolver.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnvolver.png"))); // NOI18N
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 60, 60));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 60, 60));
+
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btncomprar.png"))); // NOI18N
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 80, 80));
 
         panAdicionales.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ADICIONALES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14), new java.awt.Color(51, 51, 255))); // NOI18N
         panAdicionales.setOpaque(false);
@@ -223,14 +233,19 @@ public class frmMarcas extends javax.swing.JFrame {
         chkEsponja.setForeground(new java.awt.Color(0, 102, 255));
         chkEsponja.setText("ESPONJA $119.99");
         chkEsponja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/esponja.png"))); // NOI18N
-
-        chkAromantizantes.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
-        chkAromantizantes.setForeground(new java.awt.Color(51, 102, 255));
-        chkAromantizantes.setText("AROMATIZANTE $89.99");
-        chkAromantizantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/aromi.png"))); // NOI18N
-        chkAromantizantes.addActionListener(new java.awt.event.ActionListener() {
+        chkEsponja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkAromantizantesActionPerformed(evt);
+                chkEsponjaActionPerformed(evt);
+            }
+        });
+
+        chkAromatizantes.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
+        chkAromatizantes.setForeground(new java.awt.Color(51, 102, 255));
+        chkAromatizantes.setText("AROMATIZANTE $89.99");
+        chkAromatizantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/aromi.png"))); // NOI18N
+        chkAromatizantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAromatizantesActionPerformed(evt);
             }
         });
 
@@ -238,6 +253,11 @@ public class frmMarcas extends javax.swing.JFrame {
         chkFundas.setForeground(new java.awt.Color(0, 102, 204));
         chkFundas.setText("FUNDAS DE VOLANTE $169.99");
         chkFundas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/funda.png"))); // NOI18N
+        chkFundas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFundasActionPerformed(evt);
+            }
+        });
 
         chkToalla.setFont(new java.awt.Font("Rockwell", 3, 14)); // NOI18N
         chkToalla.setForeground(new java.awt.Color(0, 102, 204));
@@ -253,6 +273,11 @@ public class frmMarcas extends javax.swing.JFrame {
         chkCalcomania.setForeground(new java.awt.Color(0, 102, 204));
         chkCalcomania.setText("CALCOMANIAS $79.99");
         chkCalcomania.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/calco.jpg"))); // NOI18N
+        chkCalcomania.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkCalcomaniaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAdicionalesLayout = new javax.swing.GroupLayout(panAdicionales);
         panAdicionales.setLayout(panAdicionalesLayout);
@@ -262,11 +287,11 @@ public class frmMarcas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panAdicionalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chkEsponja)
-                    .addComponent(chkAromantizantes)
+                    .addComponent(chkAromatizantes)
                     .addComponent(chkFundas)
                     .addComponent(chkToalla)
                     .addComponent(chkCalcomania))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         panAdicionalesLayout.setVerticalGroup(
             panAdicionalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +299,7 @@ public class frmMarcas extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(chkEsponja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkAromantizantes)
+                .addComponent(chkAromatizantes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkFundas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -284,7 +309,7 @@ public class frmMarcas extends javax.swing.JFrame {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panAdicionales, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 290, 400));
+        getContentPane().add(panAdicionales, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 310, 400));
 
         lblMarca.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblMarca.setForeground(new java.awt.Color(255, 255, 255));
@@ -296,7 +321,7 @@ public class frmMarcas extends javax.swing.JFrame {
         getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 157, 134));
 
         lblFondo.setOpaque(true);
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 570));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 500));
 
         pack();
         setLocationRelativeTo(null);
@@ -336,17 +361,110 @@ public class frmMarcas extends javax.swing.JFrame {
         lblModelo.setIcon(Escala); 
     }//GEN-LAST:event_cboModelosActionPerformed
 
-    private void chkAromantizantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAromantizantesActionPerformed
-    }//GEN-LAST:event_chkAromantizantesActionPerformed
+    private void chkAromatizantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAromatizantesActionPerformed
+        if(chkAromatizantes.isSelected())
+        chkAromatizantes.setText(chkAromatizantes.getText()+"*");
+        else
+        chkAromatizantes.setText(chkAromatizantes.getText().replace("*", ""));
+    }//GEN-LAST:event_chkAromatizantesActionPerformed
 
     private void chkToallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkToallaActionPerformed
-        // TODO add your handling code here:
+        if(chkToalla.isSelected())
+        chkToalla.setText(chkToalla.getText()+"*");
+        else
+        chkToalla.setText(chkToalla.getText().replace("*", ""));
     }//GEN-LAST:event_chkToallaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         dispose();
         new frmVentas().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        frmVentas.autocompra="";
+        modelo=smodelo;
+        if (chkEsponja.isSelected()) {
+            subtotadicionales += 119.99;
+            adicionales+="Esponja\n";
+        }
+
+        if (chkAromatizantes.isSelected()) {
+            subtotadicionales += 89.99;
+            adicionales+="Aromatizante\n";
+        }
+
+        if (chkFundas.isSelected()) {
+            subtotadicionales += 169.99;
+            adicionales+="Funda\n";
+        }
+
+        if (chkToalla.isSelected()) {
+            subtotadicionales += 489.99;
+            adicionales+="Toalla\n";
+        }   
+
+        if (chkCalcomania.isSelected()) {
+            subtotadicionales += 79.99;
+            adicionales+="Calcomania\n";
+        }
+        
+        if (smodelo.equals("MODELOS")){
+            JOptionPane.showMessageDialog(null, "Seleccione un auto primero");
+        }
+        else{
+            String query = "SELECT costo FROM almacen WHERE nombre = '"+smodelo+"'";
+            try {
+                Statement stm = cn.createStatement();
+                ResultSet rsm = stm.executeQuery(query);
+                if (rsm.next()) {
+                    
+                    subtotauto=Double.parseDouble(rsm.getString(1));
+                    confirm=JOptionPane.showConfirmDialog(null, "¿Desea comprar refacciones?", "CONFIRMAR",
+				JOptionPane.YES_NO_OPTION);
+                    
+                    if (confirm==0) {
+                        frmPartes.volver=1;
+                        dispose();
+                        new frmPartes().setVisible(true);
+                        }
+                    else {
+                       frmTicket.volver=1;
+                        dispose();
+                        new frmTicket().setVisible(true); 
+                    }
+                    }
+                else {
+                    JOptionPane.showMessageDialog(null, "Este auto no está disponible por el momento:(");
+                    }
+            }
+            catch(SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void chkEsponjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEsponjaActionPerformed
+        if(chkEsponja.isSelected())
+        chkEsponja.setText(chkEsponja.getText()+"*");
+        else
+        chkEsponja.setText(chkEsponja.getText().replace("*", ""));
+    }//GEN-LAST:event_chkEsponjaActionPerformed
+
+    private void chkFundasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFundasActionPerformed
+        if(chkFundas.isSelected())
+        chkFundas.setText(chkFundas.getText()+"*");
+        else
+        chkFundas.setText(chkFundas.getText().replace("*", ""));
+    }//GEN-LAST:event_chkFundasActionPerformed
+
+    private void chkCalcomaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCalcomaniaActionPerformed
+        if(chkCalcomania.isSelected())
+        chkCalcomania.setText(chkCalcomania.getText()+"*");
+        else
+        chkCalcomania.setText(chkCalcomania.getText().replace("*", ""));
+    }//GEN-LAST:event_chkCalcomaniaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,13 +502,14 @@ public class frmMarcas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnComprar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cboModelos;
-    private javax.swing.JCheckBox chkAromantizantes;
+    private javax.swing.JCheckBox chkAromatizantes;
     private javax.swing.JCheckBox chkCalcomania;
     private javax.swing.JCheckBox chkEsponja;
     private javax.swing.JCheckBox chkFundas;
     private javax.swing.JCheckBox chkToalla;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLema;
