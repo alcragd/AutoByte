@@ -60,7 +60,8 @@ public class frmMarcas extends javax.swing.JFrame {
                 break;
                 default: 
                     dispose();
-                    new frmVentas().setVisible(true);                    
+                    new frmVentas().setVisible(true); 
+                    
                 break;
              
                 
@@ -419,7 +420,7 @@ public class frmMarcas extends javax.swing.JFrame {
                 if (rsm.next()) {
                     
                     subtotauto=Double.parseDouble(rsm.getString(1));
-                    confirm=JOptionPane.showConfirmDialog(null, "¿Desea comprar refacciones?", "CONFIRMAR",
+                    confirm = JOptionPane.showConfirmDialog(null, "¿Desea comprar refacciones?", "CONFIRMAR",
 				JOptionPane.YES_NO_OPTION);
                     
                     if (confirm==0) {
@@ -431,6 +432,7 @@ public class frmMarcas extends javax.swing.JFrame {
                        frmTicket.volver=1;
                         dispose();
                         new frmTicket().setVisible(true); 
+                            
                     }
                     }
                 else {

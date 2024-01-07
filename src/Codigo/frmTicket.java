@@ -17,7 +17,7 @@ ImageIcon Cromo=new ImageIcon();
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
     
-    static int volver,confirmseguro;
+    static int volver,confirmseguro,creditos;
     String seguro="",sql;
     double costoseguro,subtotauto,total,pago,falta;
     /**
@@ -31,13 +31,26 @@ ImageIcon Cromo=new ImageIcon();
         
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icon.png")).getImage());
         
+        
         subtotauto=frmVentas.precio+frmMarcas.subtotauto;
+        
+        btnSeguros.setEnabled(false);
+        if (creditos==0) {
+        Ticket();
         btnInicio.setEnabled(false);
         btnVolver.setEnabled(false);
         btnCreditos.setEnabled(false);
         btnSalir.setEnabled(false);
         btnPagar.setEnabled(true);
-        Ticket();
+        }
+        else {
+        btnInicio.setEnabled(true);
+        btnVolver.setEnabled(true);
+        btnCreditos.setEnabled(true);
+        btnSalir.setEnabled(true);
+        btnPagar.setEnabled(false);
+        txtaTicket.setVisible(false);
+    }
     }
 
     /**
@@ -135,7 +148,7 @@ ImageIcon Cromo=new ImageIcon();
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 280, 290));
 
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnVolver.png"))); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnvolver.png"))); // NOI18N
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
@@ -167,6 +180,7 @@ ImageIcon Cromo=new ImageIcon();
     }// </editor-fold>//GEN-END:initComponents
     
     private void Ticket() {
+            btnSeguros.setEnabled(true);
                 total=subtotauto+costoseguro+frmMarcas.subtotadicionales+frmPartes.subtotpartes;
                 txtaTicket.setText("=============AUTOBYTE============="
                 + "\n\nCOMPROMETIDOS CON LA SEGURIDAD,"
@@ -209,6 +223,12 @@ ImageIcon Cromo=new ImageIcon();
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        
+        
+        
+        
+        
+        
         dispose();
     switch (volver) {
         case 0:
@@ -269,6 +289,9 @@ ImageIcon Cromo=new ImageIcon();
         ActualizarExistencias("Transmisiones",frmPartes.NTransmision);
         ActualizarExistencias("Suspensiones",frmPartes.NSuspensiones);
         ActualizarExistencias("Luces Traseras",frmPartes.NLucest);
+        
+        
+        
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnCreditosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditosActionPerformed

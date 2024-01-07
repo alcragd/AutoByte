@@ -63,7 +63,7 @@ ImageIcon Cromo=new ImageIcon();
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnVolver.png"))); // NOI18N
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnvolver.png"))); // NOI18N
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
@@ -231,6 +231,9 @@ ImageIcon Cromo=new ImageIcon();
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
         frmTicket.volver=2;
+        
+       
+                    
         subneu=NNeumaticos*PartesPrecio("Neumaticos");
         subfreno=NFrenos*PartesPrecio("Frenos Traseros");
         subescapes=NEscapes*PartesPrecio("Escapes");

@@ -18,7 +18,7 @@ public class frmVentas extends javax.swing.JFrame {
     ImageIcon Escala=new ImageIcon();
     AutoByteDB you = new AutoByteDB();
     Connection cn = you.conexion();
-    static String nombre, numero,autocompra="S";            
+    static String nombre, numero,autocompra="";            
     String imgautos,sql;
     static double precio;
     int confirm;
@@ -77,6 +77,7 @@ public class frmVentas extends javax.swing.JFrame {
         btnPartes = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
         btnAlmacen = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         lblLema = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -167,7 +168,7 @@ public class frmVentas extends javax.swing.JFrame {
 
         lbllogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo mini.jpg"))); // NOI18N
         lbllogo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 100, -1));
+        getContentPane().add(lbllogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 100, -1));
 
         panComprador.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Comprador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12), new java.awt.Color(0, 102, 255))); // NOI18N
         panComprador.setOpaque(false);
@@ -200,7 +201,7 @@ public class frmVentas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        getContentPane().add(panComprador, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         panModelos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panModelos.setOpaque(false);
@@ -270,7 +271,15 @@ public class frmVentas extends javax.swing.JFrame {
                 btnAlmacenActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 80, 80));
+        getContentPane().add(btnAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 80, 80));
+
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnsalir.png"))); // NOI18N
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
 
         lblLema.setFont(new java.awt.Font("Microsoft Sans Serif", 3, 18)); // NOI18N
         lblLema.setForeground(new java.awt.Color(0, 153, 255));
@@ -311,7 +320,7 @@ public class frmVentas extends javax.swing.JFrame {
                 break;
                 case 1: imgautos="versa.jpg";  autocompra="versa";
                 break;
-                case 2: imgautos="NP300.jpg";   autocompra="NP300";
+                case 2: imgautos="np300.jpg";   autocompra="NP300";
                 break;
                 case 3: imgautos="rio.jpg"; autocompra="rio";
                 break;
@@ -319,13 +328,13 @@ public class frmVentas extends javax.swing.JFrame {
                 break;
                 case 5: imgautos="sentra.jpg"; autocompra="Sentra";
                 break;
-                case 6: imgautos="MG5.jpg"; autocompra="MG5";
+                case 6: imgautos="mg5.jpg"; autocompra="MG5";
                 break;
-                case 7: imgautos="March.jpg";   autocompra="march";
+                case 7: imgautos="march.jpg";   autocompra="march";
                 break;
-                case 8: imgautos="Mazda3.jpg";  autocompra="mazda3";
+                case 8: imgautos="mazda3.jpg";  autocompra="mazda3";
                 break;
-                case 9: imgautos="Mazda2.jpg"; autocompra="mazda2";
+                case 9: imgautos="mazda2.jpg"; autocompra="mazda2";
                 break;
                 case 10: imgautos="seltos.jpg"; autocompra="seltos";
                 break;
@@ -361,7 +370,7 @@ public class frmVentas extends javax.swing.JFrame {
                 ResultSet rsm = stm.executeQuery(query);
                 if (rsm.next()) {
                     precio=Double.parseDouble(rsm.getString(1));
-                    confirm=JOptionPane.showConfirmDialog(null, "¿Desea comprar refacciones?", "CONFIRMAR",
+                    confirm = JOptionPane.showConfirmDialog(null, "¿Desea comprar refacciones?", "CONFIRMAR",
 				JOptionPane.YES_NO_OPTION);
                     
                     if (confirm==0) {
@@ -416,6 +425,11 @@ public class frmVentas extends javax.swing.JFrame {
         new frmPartes().setVisible(true);
     }//GEN-LAST:event_btnPartesActionPerformed
 
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        dispose();
+        new frmInicio().setVisible(true);
+    }//GEN-LAST:event_btnInicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -453,6 +467,7 @@ public class frmVentas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlmacen;
+    public static javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMasModelos;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnPartes;

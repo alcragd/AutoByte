@@ -174,6 +174,8 @@ ImageIcon Escala=new ImageIcon();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        
+        frmTicket.creditos=1;
         dispose();
         new frmTicket().setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
